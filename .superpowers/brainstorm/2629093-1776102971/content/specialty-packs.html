@@ -1,0 +1,104 @@
+<h2>Specialty Plugin Packs</h2>
+<p class="subtitle">Each pack installs a set of specialty-specific mini-modules + pre-built template layouts. Mix and match freely on the canvas. Which specialties should ship first-party with the app?</p>
+
+<div class="options" data-multiselect>
+
+  <div class="option" data-choice="cardiology" onclick="toggleSelect(this)">
+    <div class="letter">❤️</div>
+    <div class="content">
+      <h3>Cardiology</h3>
+      <p>GDMT tracker (BB/ACEi/ARNI/MRA/SGLT2i doses+targets), EF/Echo, diuresis response, hemodynamics (CI/PCWP/SVR), rhythm+pacemaker, CHADS₂-VASc, HAS-BLED, TIMI, GRACE, LVAD settings</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="pulm" onclick="toggleSelect(this)">
+    <div class="letter">🫁</div>
+    <div class="content">
+      <h3>Pulmonology / Critical Care</h3>
+      <p>Vent settings (mode/FiO₂/PEEP/TV/P-plat), ARDSnet protocol, ABG interpreter, bronchodilator tracker, CURB-65, PSI, Berlin ARDS criteria, P/F ratio, weaning readiness</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="nephro" onclick="toggleSelect(this)">
+    <div class="letter">🫘</div>
+    <div class="content">
+      <h3>Nephrology</h3>
+      <p>Dialysis settings (HD/PD, UF goal, access), GFR trends (CKD-EPI cited), electrolyte tracker, RRT timeline, urine studies, AKI staging (KDIGO), FENa/FEUrea</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="neuro" onclick="toggleSelect(this)">
+    <div class="letter">🧠</div>
+    <div class="content">
+      <h3>Neurology / Neurocritical Care</h3>
+      <p>NIHSS (full scored), mRS, GCS, pupil tracker, ICP/CPP monitor, seizure log, stroke timeline (LKW/door-to-needle), Hunt-Hess, Fisher grade, EVD settings</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="id" onclick="toggleSelect(this)">
+    <div class="letter">🦠</div>
+    <div class="content">
+      <h3>Infectious Disease</h3>
+      <p>Antibiotic tracker (agent/dose/day/planned duration), culture+sensitivity log, fever curve, source control tracker, Sepsis-3/qSOFA, ANC tracker, antifungal/antiviral log</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="icu" onclick="toggleSelect(this)">
+    <div class="letter">🏥</div>
+    <div class="content">
+      <h3>ICU / Critical Care</h3>
+      <p>Vasopressor tracker (multiple agents, doses, MAP target), RASS/CPOT, SAT/SBT readiness, nutrition (EN/PN, kcal/protein targets), SOFA, APACHE II, VTE prophylaxis status</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="hemonc" onclick="toggleSelect(this)">
+    <div class="letter">🩸</div>
+    <div class="content">
+      <h3>Hematology / Oncology</h3>
+      <p>Chemo regimen tracker (cycle/day/agents), ANC/CBC trends, transfusion log (pRBC/FFP/PLT/cryo with reactions), tumor markers, neutropenic fever protocol, dose modifications</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="gi" onclick="toggleSelect(this)">
+    <div class="letter">🫀</div>
+    <div class="content">
+      <h3>Hepatology / GI</h3>
+      <p>MELD-Na (cited), Child-Pugh, ascites tracker (paracentesis log, SBP albumin replacement), West Haven encephalopathy, lactulose/rifaximin, GI bleed (Glasgow-Blatchford, Rockall)</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="endo" onclick="toggleSelect(this)">
+    <div class="letter">⚗️</div>
+    <div class="content">
+      <h3>Endocrinology</h3>
+      <p>Insulin infusion protocol tracker, glucose log (with time-in-range), DKA tracker (anion gap, bicarb trend, closure criteria), thyroid/adrenal labs, steroid taper log</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="surgery" onclick="toggleSelect(this)">
+    <div class="letter">🔪</div>
+    <div class="content">
+      <h3>General Surgery / Post-Op</h3>
+      <p>Surgical drains (output type/color/volume), wound assessment (VAC settings, dehiscence), post-op checklist, diet advancement, DVT prophylaxis, ostomy output</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="obgyn" onclick="toggleSelect(this)">
+    <div class="letter">🤰</div>
+    <div class="content">
+      <h3>OB/GYN</h3>
+      <p>Antepartum tracking (GA, FHR, contraction pattern), postpartum assessment, preeclampsia severity tracker (BP log, proteinuria, labs), mag drip settings</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="peds" onclick="toggleSelect(this)">
+    <div class="letter">👶</div>
+    <div class="content">
+      <h3>Pediatrics / Neonatology</h3>
+      <p>Weight-based dosing calculator, growth charts, Apgar, NAS scoring (Finnegan), NICU flowsheet (TPN components, UAC/UVC), age-adjusted vitals normals</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">Select all that should ship first-party. Others become community pack targets. Tell me in terminal if a specialty is missing.</p>

@@ -1,0 +1,100 @@
+<h2>Overall App Layout</h2>
+<p class="subtitle">How the app is organized day-to-day. Which of these feels most natural for your workflow?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d1a;padding:10px;border-radius:6px;font-size:10px;font-family:monospace">
+      <!-- Top bar -->
+      <div style="background:#1a1a2e;border-radius:4px;padding:6px 10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+        <span style="color:#4cc9f0;font-weight:bold">PatientTemplate</span>
+        <span style="color:#888;font-size:9px">Grid ▾ | Export | Print</span>
+      </div>
+      <!-- Body -->
+      <div style="display:flex;gap:8px">
+        <!-- Left sidebar -->
+        <div style="width:90px;background:#16213e;border-radius:4px;padding:8px">
+          <div style="color:#4cc9f0;font-size:8px;margin-bottom:6px">TEMPLATES</div>
+          <div style="background:#0f3460;border-radius:3px;padding:4px;color:#fff;font-size:9px;margin-bottom:4px">ICU Rounding</div>
+          <div style="color:#888;font-size:9px;margin-bottom:4px;padding:4px">Med/Surg Card</div>
+          <div style="color:#888;font-size:9px;margin-bottom:4px;padding:4px">Nursing Head-to-Toe</div>
+          <div style="color:#4cc9f0;font-size:9px;margin-top:8px;padding:4px">+ New Template</div>
+        </div>
+        <!-- Canvas -->
+        <div style="flex:1;background:#13131f;border-radius:4px;padding:8px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+            <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px">
+              <div style="color:#4cc9f0;font-size:8px">VITALS</div>
+              HR 72 · BP 118/76
+            </div>
+            <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px">
+              <div style="color:#4cc9f0;font-size:8px">LABS</div>
+              Na 138 · K 4.1
+            </div>
+            <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px;grid-column:1/3">
+              <div style="color:#4cc9f0;font-size:8px">A&P</div>
+              #1 CHF · #2 AKI
+            </div>
+          </div>
+        </div>
+        <!-- Right panel -->
+        <div style="width:80px;background:#16213e;border-radius:4px;padding:8px">
+          <div style="color:#c77dff;font-size:8px;margin-bottom:6px">ADD MODULE</div>
+          <div style="background:#1a1a2e;border-radius:3px;padding:4px;color:#888;font-size:8px;margin-bottom:3px">Vitals</div>
+          <div style="background:#1a1a2e;border-radius:3px;padding:4px;color:#888;font-size:8px;margin-bottom:3px">Labs</div>
+          <div style="background:#1a1a2e;border-radius:3px;padding:4px;color:#888;font-size:8px;margin-bottom:3px">Fishbone</div>
+          <div style="background:#1a1a2e;border-radius:3px;padding:4px;color:#888;font-size:8px;margin-bottom:3px">A&P</div>
+          <div style="background:#1a1a2e;border-radius:3px;padding:4px;color:#888;font-size:8px">…more</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Three-panel (Sidebar + Canvas + Module Palette)</h3>
+      <p>Template list on the left, module library on the right, canvas in the middle. Everything visible at once.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d1a;padding:10px;border-radius:6px;font-size:10px;font-family:monospace">
+      <!-- Top bar with tabs -->
+      <div style="background:#1a1a2e;border-radius:4px;padding:6px 10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;gap:10px">
+          <span style="color:#4cc9f0;border-bottom:2px solid #4cc9f0;padding-bottom:2px;font-size:9px">My Templates</span>
+          <span style="color:#888;font-size:9px">ICU Rounding ×</span>
+          <span style="color:#888;font-size:9px">Med/Surg ×</span>
+          <span style="color:#888;font-size:9px">+</span>
+        </div>
+        <span style="color:#888;font-size:9px">Grid ▾ | ⋮</span>
+      </div>
+      <!-- Full canvas -->
+      <div style="background:#13131f;border-radius:4px;padding:8px;min-height:100px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+          <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px">
+            <div style="color:#4cc9f0;font-size:8px">VITALS</div>HR 72 · BP 118/76
+          </div>
+          <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px">
+            <div style="color:#4cc9f0;font-size:8px">LABS</div>Na 138 · K 4.1
+          </div>
+          <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px">
+            <div style="color:#4cc9f0;font-size:8px">TASKS</div>☐ Echo ☐ Consult
+          </div>
+          <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px;grid-column:1/3">
+            <div style="color:#4cc9f0;font-size:8px">A&P</div>#1 CHF · #2 AKI · #3 HTN
+          </div>
+          <div style="background:#16213e;border:1px solid #0f3460;border-radius:3px;padding:6px;color:#e0e0e0;font-size:9px">
+            <div style="color:#4cc9f0;font-size:8px">NOTES</div>Overnight stable
+          </div>
+        </div>
+      </div>
+      <!-- Bottom hint -->
+      <div style="color:#555;font-size:8px;text-align:center;margin-top:6px">Right-click canvas or press + to add module</div>
+    </div>
+    <div class="card-body">
+      <h3>B — Tabbed Canvas (max screen real estate)</h3>
+      <p>Open templates as tabs. Module palette opens as a floating panel or right-click menu. Canvas fills the screen. Best for data-dense templates.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">Click to select. Either can be adjusted — this is just the overall shell.</p>

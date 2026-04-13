@@ -1,0 +1,81 @@
+<h2>Architecture Overview</h2>
+<p class="subtitle">Plugin-first design — core is thin, everything is a module. Does this structure look right?</p>
+
+<div class="mockup">
+  <div class="mockup-header">System Architecture</div>
+  <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:1.6">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+
+      <div style="border:1px solid #4cc9f0;border-radius:6px;padding:12px">
+        <div style="color:#4cc9f0;font-weight:bold;margin-bottom:8px">CORE (thin)</div>
+        <div style="color:#e0e0e0;font-size:11px">
+          ├── Template Engine<br>
+          │   └── loads/saves template JSON<br>
+          ├── Canvas System<br>
+          │   ├── Grid mode (default)<br>
+          │   ├── Freeform mode<br>
+          │   └── Sections mode<br>
+          ├── Plugin Registry<br>
+          │   └── discovers &amp; registers modules<br>
+          ├── Storage Layer (Dexie/IndexedDB)<br>
+          └── Export Engine<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;├── PDF (pixel-perfect)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;├── PDF (clean doc)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;└── Print
+        </div>
+      </div>
+
+      <div style="border:1px solid #c77dff;border-radius:6px;padding:12px">
+        <div style="color:#c77dff;font-weight:bold;margin-bottom:8px">MODULE PLUGIN INTERFACE</div>
+        <div style="color:#e0e0e0;font-size:11px">
+          Every module exports:<br><br>
+          ├── <span style="color:#7ec8a0">meta</span> — id, name, version, author<br>
+          ├── <span style="color:#7ec8a0">schema</span> — config + data fields<br>
+          ├── <span style="color:#7ec8a0">defaultConfig</span> — sane defaults<br>
+          ├── <span style="color:#7ec8a0">Renderer</span> — view component<br>
+          ├── <span style="color:#7ec8a0">Editor</span> — config/edit panel<br>
+          ├── <span style="color:#7ec8a0">PrintView</span> — PDF/print output<br>
+          └── <span style="color:#7ec8a0">minSize</span> — grid units (w×h)
+        </div>
+      </div>
+
+    </div>
+
+    <div style="border:1px solid #7ec8a0;border-radius:6px;padding:12px;margin-bottom:16px">
+      <div style="color:#7ec8a0;font-weight:bold;margin-bottom:8px">FIRST-PARTY PLUGINS (built-in modules, same interface as community plugins)</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;color:#e0e0e0;font-size:10px">
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">patient-header</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">vitals</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">labs-panel</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">labs-fishbone</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">assessment-plan</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">medications</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">intake-output</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">lines-tubes</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">task-checklist</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">free-text</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">consults</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">nursing-assessment</div>
+        <div style="background:#1a1a2e;border-radius:4px;padding:6px">custom-fields</div>
+        <div style="background:#16213e;border-radius:4px;padding:6px;border:1px dashed #4cc9f0;color:#4cc9f0">+ community…</div>
+      </div>
+    </div>
+
+    <div style="border:1px solid #f0a500;border-radius:6px;padding:12px">
+      <div style="color:#f0a500;font-weight:bold;margin-bottom:8px">DATA FLOW</div>
+      <div style="color:#e0e0e0;font-size:11px">
+        Template JSON (IndexedDB)<br>
+        &nbsp;&nbsp;↓ loaded by Template Engine<br>
+        Canvas renders modules via Plugin Registry<br>
+        &nbsp;&nbsp;↓ user edits data in module Renderers<br>
+        Changes saved back to IndexedDB (auto-save)<br>
+        &nbsp;&nbsp;↓ export triggered<br>
+        Export Engine → PDF (pixel/clean) or Print
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:16px">Does this structure look right? Reply in terminal with any adjustments.</p>

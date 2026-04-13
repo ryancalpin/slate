@@ -1,0 +1,104 @@
+<h2>Which standard modules should ship out of the box?</h2>
+<p class="subtitle">Select all you'd want in the default library. Users can always build custom modules too — this is just what comes pre-built.</p>
+
+<div class="options" data-multiselect>
+
+  <div class="option" data-choice="header" onclick="toggleSelect(this)">
+    <div class="letter">01</div>
+    <div class="content">
+      <h3>Patient Header</h3>
+      <p>Room, age, sex, admit date, attending, service, diagnosis, code status, isolation precautions</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="vitals" onclick="toggleSelect(this)">
+    <div class="letter">02</div>
+    <div class="content">
+      <h3>Vitals</h3>
+      <p>HR, BP, RR, Temp, SpO2, Weight. Trend arrows, configurable normal ranges, color-coded alerts</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="labs" onclick="toggleSelect(this)">
+    <div class="letter">03</div>
+    <div class="content">
+      <h3>Labs</h3>
+      <p>BMP, CBC, LFTs, coags, custom panels. Prior-value comparison with trend indicators</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="ap" onclick="toggleSelect(this)">
+    <div class="letter">04</div>
+    <div class="content">
+      <h3>Assessment & Plan</h3>
+      <p>Problem-based SOAP. Numbered problem list, each with sub-fields for assessment and plan items</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="meds" onclick="toggleSelect(this)">
+    <div class="letter">05</div>
+    <div class="content">
+      <h3>Medications</h3>
+      <p>Active med list with dose/route/frequency. Highlight key meds (pressors, anticoagulants, abx)</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="io" onclick="toggleSelect(this)">
+    <div class="letter">06</div>
+    <div class="content">
+      <h3>Intake & Output</h3>
+      <p>24h I/O, net balance, UOP (mL/hr), fluid boluses, drip rates</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="lines" onclick="toggleSelect(this)">
+    <div class="letter">07</div>
+    <div class="content">
+      <h3>Lines / Tubes / Drains</h3>
+      <p>PIV, CVC, arterial line, Foley, NGT, chest tube — with insertion date/site</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="tasks" onclick="toggleSelect(this)">
+    <div class="letter">08</div>
+    <div class="content">
+      <h3>Task Checklist</h3>
+      <p>Checkbox list of pending tasks/orders. Mark complete, add notes, assign to role</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="notes" onclick="toggleSelect(this)">
+    <div class="letter">09</div>
+    <div class="content">
+      <h3>Free Text / Notes</h3>
+      <p>Rich text or plain text area for HPI, overnight events, impressions, anything narrative</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="consults" onclick="toggleSelect(this)">
+    <div class="letter">10</div>
+    <div class="content">
+      <h3>Consults & Results</h3>
+      <p>Track active consults (service, question, status/recs) and pending imaging/procedure results</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="nursing" onclick="toggleSelect(this)">
+    <div class="letter">11</div>
+    <div class="content">
+      <h3>Nursing Assessments</h3>
+      <p>Head-to-toe system review: neuro, cardiac, resp, GI, GU, skin, mobility, fall risk, pain/CPOT</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="custom" onclick="toggleSelect(this)">
+    <div class="letter">12</div>
+    <div class="content">
+      <h3>Custom Field Module</h3>
+      <p>User-defined fields: text, number, checkbox, dropdown, date, or calculated value — fully configurable</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">Select all that apply — you can deselect too. Tell me in the terminal if something's missing.</p>

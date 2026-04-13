@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-surface: 15 15 26;
+    --color-surface-raised: 22 33 62;
+    --color-accent: 76 201 240;
+  }
+
+  html {
+    @apply bg-[rgb(var(--color-surface))] text-gray-100;
+  }
+
+  .dark {
+    --color-surface: 15 15 26;
+    --color-surface-raised: 22 33 62;
+    --color-accent: 76 201 240;
+  }
+
+  html:not(.dark) {
+    --color-surface: 248 250 252;
+    --color-surface-raised: 255 255 255;
+    --color-accent: 14 116 144;
+    @apply text-gray-900;
+  }
+}
