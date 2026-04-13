@@ -131,7 +131,7 @@ All 14 ship with the app and serve as reference implementations for community co
 | `consults` | Consults & Results | Track by service, question, status/recs, pending imaging |
 | `nursing-assessment` | Nursing Assessment | System checkboxes: neuro, cardiac, resp, GI, GU, skin, mobility, fall risk, pain/CPOT |
 | `custom-fields` | Custom Fields | Any combination of text, number, checkbox, dropdown, date fields; simple math formulas (sum, average) |
-| `calculated` | Clinical Calculators | Pre-built clinical formulas: anion gap, MAP, fluid balance, BMI, A-a gradient, GFR; formula editor for custom equations |
+| `calculated` | Clinical Calculators | Pre-built clinical formulas: anion gap, MAP, fluid balance, BMI, A-a gradient, GFR; formula editor for custom equations. **All formulas must cite a published source (journal, guideline, or validated tool). No formula ships without a citation. Custom formula editor includes a required citation field.** |
 
 ---
 
@@ -245,6 +245,19 @@ Print preview always renders in light mode with configurable page margins and or
 - **Template contributions:** Share `.ptjson` files in a community GitHub repo, browseable via in-app gallery
 - **Docs:** Contributing guide, module authoring guide, architecture overview
 - **Reference implementations:** All 14 built-in modules serve as copy-paste starting points for contributors
+
+---
+
+## Clinical Evidence Standard
+
+All calculations in the `calculated` module (and any community-contributed module containing clinical formulas) must meet this standard without exception:
+
+- Every formula ships with a mandatory citation (journal article, clinical guideline, or validated scoring tool with known sensitivity/specificity)
+- Citations are displayed in the UI alongside the result — the user always sees the source
+- If a formula has multiple validated variants (e.g., CKD-EPI vs MDRD for GFR), each variant is labeled and cited separately
+- The custom formula editor requires a citation field before saving — it cannot be left blank
+- Community plugin review guidelines will enforce this standard: PRs adding clinical calculators without citations are rejected
+- No "clinical judgment adjustments" or unnoted modifications to published formulas
 
 ---
 
