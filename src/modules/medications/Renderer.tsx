@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import type { FC } from 'react'
 
 interface Medication {
@@ -101,8 +101,8 @@ export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
               <tr key={med.id} className={`border-t border-gray-200 dark:border-gray-700 ${rowClass}`}>
                 {(['drug', 'dose', 'frequency', 'indication'] as const).map((field, fi) =>
                   fi === 1 ? (
-                    <>
-                      <td key="dose" className="py-0.5 pr-1">
+                    <React.Fragment key="dose-route">
+                      <td className="py-0.5 pr-1">
                         <input
                           type="text"
                           value={med.dose}
@@ -112,7 +112,7 @@ export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
                           placeholder="—"
                         />
                       </td>
-                      <td key="route" className="py-0.5 pr-1">
+                      <td className="py-0.5 pr-1">
                         <select
                           value={med.route}
                           onChange={e => !isPlaceholder && updateMed(med.id, 'route', e.target.value)}
@@ -122,7 +122,7 @@ export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
                           {ROUTES.map(r => <option key={r} value={r}>{r}</option>)}
                         </select>
                       </td>
-                    </>
+                    </React.Fragment>
                   ) : (
                     <td key={field} className="py-0.5 pr-1">
                       <input
