@@ -69,7 +69,7 @@ interface ModulePlugin {
 ### Core Systems
 
 - **Template Engine** — loads, saves, and versions template JSON documents from IndexedDB
-- **Plugin Registry** — discovers and registers built-in + user-installed plugins
+- **Plugin Registry** — discovers and registers built-in plugins + user-installed plugins (loaded from a `plugins/` directory as ES modules, or listed in a `plugins.config.js` by npm package name)
 - **Canvas System** — renders layout in selected mode, handles drag/drop/resize via dnd-kit
 - **Export Engine** — pixel-perfect PDF (html2canvas), clean doc PDF (formatted layout), browser print
 - **Snapshot Engine** — auto-freezes a read-only daily snapshot when a new day begins
@@ -130,8 +130,8 @@ All 14 ship with the app and serve as reference implementations for community co
 | `free-text` | Free Text / Notes | Rich text or plain text, font size, label |
 | `consults` | Consults & Results | Track by service, question, status/recs, pending imaging |
 | `nursing-assessment` | Nursing Assessment | System checkboxes: neuro, cardiac, resp, GI, GU, skin, mobility, fall risk, pain/CPOT |
-| `custom-fields` | Custom Fields | Any combination of text, number, checkbox, dropdown, date, calculated fields |
-| `calculated` | Calculated Values | Anion gap, MAP, fluid balance, BMI, A-a gradient, GFR — formula editor |
+| `custom-fields` | Custom Fields | Any combination of text, number, checkbox, dropdown, date fields; simple math formulas (sum, average) |
+| `calculated` | Clinical Calculators | Pre-built clinical formulas: anion gap, MAP, fluid balance, BMI, A-a gradient, GFR; formula editor for custom equations |
 
 ---
 
@@ -169,9 +169,10 @@ All 14 ship with the app and serve as reference implementations for community co
 - No internet required for clinical use
 
 ### Template Gallery
-- Browse community templates hosted as `.ptjson` files on GitHub
-- One-click import into your local app
-- Submit your own templates via a community repo
+- App fetches a community-maintained `index.json` from a known GitHub raw URL (the community repo)
+- `index.json` lists available templates with name, description, tags, and raw `.ptjson` download URL
+- One-click import fetches the `.ptjson` and saves it to local IndexedDB
+- Submit your own templates by opening a PR to the community repo with your `.ptjson` file
 
 ### Module Lock
 - Lock individual modules in place (prevents accidental drag during fill mode)
