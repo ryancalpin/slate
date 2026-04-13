@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useTemplate } from '../../hooks/useTemplate'
+import { createModuleInstance } from '../../core/template/utils'
 import { GridCanvas } from '../../canvas/GridCanvas'
 import { ModulePalette } from '../shell/ModulePalette'
 import type { AppMode, TemplatePage } from '../../core/template/types'
@@ -31,7 +32,6 @@ export function CanvasView({ mode }: Props) {
   }
 
   const handleAddModule = async (moduleId: string, version: string, defaultConfig: Record<string, unknown>) => {
-    const { createModuleInstance } = await import('../../core/template/utils')
     // Place new modules at the top-left with a small offset based on count
     const offset = page.layout.length
     const instance = createModuleInstance(moduleId, version, {
