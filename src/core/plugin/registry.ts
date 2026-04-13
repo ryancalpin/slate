@@ -29,3 +29,5 @@ export class PluginRegistry {
 
 // Global singleton — imported by Canvas and ModulePalette
 export const pluginRegistry = new PluginRegistry()
+// Alias used by module registration files
+export const registry = pluginRegistry
