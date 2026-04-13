@@ -29,8 +29,8 @@ describe('clinical calculator formulas', () => {
     expect(calcBMI(70, 1.75)).toBeCloseTo(22.86, 1)
   })
 
-  it('calcAAGradient: FiO2=0.21, PaCO2=40, PaO2=90 → ~8.65', () => {
-    expect(calcAAGradient(0.21, 40, 90)).toBeCloseTo(8.65, 0)
+  it('calcAAGradient: FiO2=0.21, PaCO2=40, PaO2=90 → ~9.73', () => {
+    expect(calcAAGradient(0.21, 40, 90)).toBeCloseTo(9.73, 0)
   })
 
   it('calcCKDEPI female Cr≤0.7: Cr=0.6, age=50 → >60', () => {
