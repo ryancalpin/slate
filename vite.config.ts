@@ -24,6 +24,7 @@ export default defineConfig({
       },
     }),
   ],
+  // @ts-ignore — vitest injects test config at runtime; tsc doesn't know about it
   test: {
     environment: 'happy-dom',
     globals: true,
