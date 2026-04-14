@@ -33,3 +33,34 @@ export function clampToGrid(pos: ModulePosition): ModulePosition {
     y: Math.max(0, pos.y),
   }
 }
+
+// --- Freeform canvas helpers ---
+
+export interface FreeformPosition {
+  x: number
+  y: number
+}
+
+export interface FreeformPixelStyle {
+  left: string
+  top: string
+}
+
+/**
+ * Converts a freeform position (pixel coordinates stored in layout data)
+ * to CSS style values for absolute positioning.
+ */
+export function freeformToPixel(pos: FreeformPosition): FreeformPixelStyle {
+  return {
+    left: `${pos.x}px`,
+    top: `${pos.y}px`,
+  }
+}
+
+/**
+ * Converts raw pixel coordinates (e.g., from a drag event) back to
+ * freeform position data for storage in the layout.
+ */
+export function pixelToFreeform(x: number, y: number): FreeformPosition {
+  return { x, y }
+}
