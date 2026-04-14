@@ -25,6 +25,16 @@ export class PluginRegistry {
   listByPack(packId: string): ModulePlugin[] {
     return this.list().filter(p => p.meta.pack === packId)
   }
+
+  /** Returns all registered plugins as an array. */
+  getAll(): ModulePlugin[] {
+    return Array.from(this.plugins.values())
+  }
+
+  /** Removes a plugin by ID. Built-in protection should be enforced in the UI, not here. */
+  unregister(id: string): void {
+    this.plugins.delete(id)
+  }
 }
 
 // Global singleton — imported by Canvas and ModulePalette
