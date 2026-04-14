@@ -5,6 +5,9 @@ import { TabBar } from './ui/shell/TabBar'
 import { HomeView } from './ui/views/HomeView'
 import { CanvasView } from './ui/views/CanvasView'
 import { PrintPreview } from './ui/views/PrintPreview'
+import { CensusView } from './ui/views/CensusView'
+import { GalleryView } from './ui/views/GalleryView'
+import { PluginManagerView } from './ui/views/PluginManagerView'
 import { useAppMode } from './hooks/useAppMode'
 import { useTheme } from './hooks/useTheme'
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
@@ -63,6 +66,9 @@ export default function App() {
             <Route path="/" element={<HomeView />} />
             <Route path="/template/:id" element={<CanvasView mode={mode} />} />
             <Route path="/template/:id/print" element={<PrintPreview />} />
+            <Route path="/census" element={<CensusView />} />
+            <Route path="/gallery" element={<GalleryView />} />
+            <Route path="/plugins" element={<PluginManagerView />} />
           </Routes>
         </main>
       </div>
