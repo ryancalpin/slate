@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { templateStore } from '../../core/storage/templateStore'
 import { createTemplate } from '../../core/template/utils'
 import { useAppContext } from '../../AppContext'
@@ -6,6 +7,7 @@ import type { Template } from '../../core/template/types'
 
 export function HomeView() {
   const { openTab } = useAppContext()
+  const navigate = useNavigate()
   const [templates, setTemplates] = useState<Template[]>([])
   const [creating, setCreating] = useState(false)
   const [newName, setNewName] = useState('')
@@ -41,12 +43,21 @@ export function HomeView() {
     <div className="p-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-semibold text-gray-100">My Templates</h1>
-        <button
-          onClick={() => setCreating(true)}
-          className="px-4 py-2 bg-accent-DEFAULT text-gray-900 rounded text-sm font-semibold hover:opacity-90"
-        >
-          + New Template
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => navigate('/gallery')}
+            className="px-4 py-2 text-sm rounded border border-gray-600 text-gray-300 hover:bg-gray-700 transition-colors"
+          >
+            Community Gallery
+          </button>
+          <button
+            onClick={() => setCreating(true)}
+            className="px-4 py-2 bg-accent-DEFAULT text-gray-900 rounded text-sm font-semibold hover:opacity-90"
+          >
+            + New Template
+          </button>
+        </div>
       </div>
 
       {creating && (
