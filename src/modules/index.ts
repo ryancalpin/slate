@@ -33,3 +33,7 @@ pluginRegistry.register(consultsPlugin)
 pluginRegistry.register(nursingAssessmentPlugin)
 pluginRegistry.register(customFieldsPlugin)
 pluginRegistry.register(calculatedPlugin)
+
+// Specialty packs (12 packs, imported last)
+// Each pack self-registers into pluginRegistry on import
+// import './packs/index'  ← uncommented once all pack dirs exist
