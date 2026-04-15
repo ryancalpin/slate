@@ -50,7 +50,7 @@ function GalleryCard({
           'w-full py-2 text-sm rounded font-medium transition-colors',
           importing
             ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-            : 'bg-accent-DEFAULT text-white hover:opacity-90',
+            : 'bg-accent text-white hover:opacity-90',
         )}
       >
         {importing ? 'Importing…' : 'Import'}

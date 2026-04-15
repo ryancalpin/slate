@@ -25,7 +25,7 @@ export function TopBar({ mode, onModeToggle, templateId }: Props) {
 
   return (
     <header className="flex items-center justify-between px-4 h-12 border-b border-gray-800 bg-[rgb(var(--color-surface-raised))] shrink-0">
-      <Link to="/" className="text-accent-DEFAULT font-bold text-sm tracking-wide select-none">
+      <Link to="/" className="text-accent font-bold text-sm tracking-wide select-none">
         PatientTemplates
       </Link>
       <div className="flex items-center gap-3">
@@ -37,7 +37,7 @@ export function TopBar({ mode, onModeToggle, templateId }: Props) {
             <button
               type="button"
               onClick={handlePixelPerfectExport}
-              className="px-3 py-1.5 text-sm rounded bg-accent-DEFAULT text-white hover:opacity-90 transition-opacity"
+              className="px-3 py-1.5 text-sm rounded bg-accent text-white hover:opacity-90 transition-opacity"
               title="Export PDF — exact screen replica"
             >
               Export PDF (Pixel Perfect)

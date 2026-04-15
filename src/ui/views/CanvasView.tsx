@@ -275,7 +275,7 @@ export function CanvasView({ mode }: Props) {
                 onClick={() => handlePageChange({ ...activePage, canvasMode: m })}
                 className={`px-2 py-0.5 text-xs rounded capitalize transition-colors ${
                   canvasMode === m
-                    ? 'bg-accent-DEFAULT text-white'
+                    ? 'bg-accent text-white'
                     : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
                 }`}
               >

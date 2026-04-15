@@ -41,7 +41,7 @@ export function SnapshotTimeline({
         className={clsx(
           'px-2.5 py-1 rounded text-xs font-medium shrink-0 transition-colors',
           activeSnapshotDate === null
-            ? 'bg-accent-DEFAULT text-white'
+            ? 'bg-accent text-white'
             : 'bg-gray-700 text-gray-300 hover:bg-gray-600',
         )}
       >

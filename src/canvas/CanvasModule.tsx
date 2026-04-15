@@ -54,7 +54,7 @@ export function CanvasModule({
       ref={setNodeRef}
       style={style}
       className={`absolute flex flex-col group bg-[rgb(var(--color-surface-raised))] border rounded overflow-hidden ${
-        isDragging ? 'shadow-2xl border-accent-DEFAULT' : 'border-gray-800 hover:border-gray-600'
+        isDragging ? 'shadow-2xl border-accent' : 'border-gray-800 hover:border-gray-600'
       } ${instance.locked ? 'border-yellow-800' : ''}`}
     >
       {/* Module header */}
@@ -62,7 +62,7 @@ export function CanvasModule({
         className="flex items-center justify-between px-2 py-1 bg-black/20 shrink-0 select-none"
         {...(isDraggable ? { ...attributes, ...listeners, style: { cursor: 'grab' } } : {})}
       >
-        <span className="text-xs font-semibold text-accent-DEFAULT truncate">{plugin.meta.name.toUpperCase()}</span>
+        <span className="text-xs font-semibold text-accent truncate">{plugin.meta.name.toUpperCase()}</span>
         {mode === 'build' ? (
           <div className="flex gap-1 ml-2 shrink-0">
             <button onClick={() => setShowEditor(v => !v)} title="Configure" className="text-gray-500 hover:text-gray-300 text-xs px-1">⚙️</button>

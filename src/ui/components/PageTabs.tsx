@@ -43,7 +43,7 @@ export function PageTabs({
             className={clsx(
               'flex items-center gap-1 px-3 py-2 text-sm cursor-pointer border-b-2 transition-colors shrink-0',
               isActive
-                ? 'border-accent-DEFAULT text-white font-medium'
+                ? 'border-accent text-white font-medium'
                 : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500',
             )}
             onClick={() => onSelect(page.id)}

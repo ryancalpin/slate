@@ -25,7 +25,7 @@ export function PrintPreview() {
         <span className="text-sm text-gray-400">Print Preview — {template.name}</span>
         <button
           onClick={() => handlePrint()}
-          className="px-4 py-2 bg-accent-DEFAULT text-gray-900 rounded text-sm font-semibold"
+          className="px-4 py-2 bg-accent text-gray-900 rounded text-sm font-semibold"
         >
           Print / Save PDF
         </button>

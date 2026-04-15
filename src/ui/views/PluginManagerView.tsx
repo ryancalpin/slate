@@ -129,7 +129,7 @@ export function PluginManagerView() {
               value={installUrl}
               onChange={(e) => setInstallUrl(e.target.value)}
               placeholder="https://raw.githubusercontent.com/..."
-              className="flex-1 text-sm rounded bg-gray-800 border border-gray-600 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent-DEFAULT"
+              className="flex-1 text-sm rounded bg-gray-800 border border-gray-600 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
               onKeyDown={(e) => { if (e.key === 'Enter') void handleInstallFromUrl() }}
             />
             <button
@@ -139,7 +139,7 @@ export function PluginManagerView() {
               className={clsx(
                 'px-4 py-2 text-sm rounded font-medium transition-colors',
                 installUrl.trim() && !installing
-                  ? 'bg-accent-DEFAULT text-white hover:opacity-90'
+                  ? 'bg-accent text-white hover:opacity-90'
                   : 'bg-gray-700 text-gray-500 cursor-not-allowed',
               )}
             >

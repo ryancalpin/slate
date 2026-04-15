@@ -53,7 +53,7 @@ export function HomeView() {
           </button>
           <button
             onClick={() => setCreating(true)}
-            className="px-4 py-2 bg-accent-DEFAULT text-gray-900 rounded text-sm font-semibold hover:opacity-90"
+            className="px-4 py-2 bg-accent text-gray-900 rounded text-sm font-semibold hover:opacity-90"
           >
             + New Template
           </button>
@@ -70,7 +70,7 @@ export function HomeView() {
             placeholder="Template name…"
             className="flex-1 px-3 py-2 bg-[rgb(var(--color-surface-raised))] border border-gray-700 rounded text-sm text-gray-100 placeholder-gray-500"
           />
-          <button onClick={handleCreate} className="px-4 py-2 bg-accent-DEFAULT text-gray-900 rounded text-sm font-semibold">
+          <button onClick={handleCreate} className="px-4 py-2 bg-accent text-gray-900 rounded text-sm font-semibold">
             Create
           </button>
           <button onClick={() => setCreating(false)} className="px-4 py-2 text-gray-400 text-sm">

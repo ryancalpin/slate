@@ -44,7 +44,7 @@ export function PatientSelector({
       <select
         value={activeSlotId ?? ''}
         onChange={(e) => onSelect(e.target.value)}
-        className="text-sm rounded bg-gray-800 border border-gray-600 text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-accent-DEFAULT"
+        className="text-sm rounded bg-gray-800 border border-gray-600 text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-accent"
         aria-label="Select patient slot"
       >
         {slots.map((slot) => (
@@ -82,7 +82,7 @@ export function PatientSelector({
                 value={newLabel}
                 onChange={(e) => setNewLabel(e.target.value)}
                 placeholder="Smith, J"
-                className="mt-1 w-full text-sm rounded bg-gray-800 border border-gray-600 text-white px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent-DEFAULT"
+                className="mt-1 w-full text-sm rounded bg-gray-800 border border-gray-600 text-white px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent"
                 autoFocus
               />
             </label>
@@ -94,7 +94,7 @@ export function PatientSelector({
                 value={newRoom}
                 onChange={(e) => setNewRoom(e.target.value)}
                 placeholder="4A"
-                className="mt-1 w-full text-sm rounded bg-gray-800 border border-gray-600 text-white px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent-DEFAULT"
+                className="mt-1 w-full text-sm rounded bg-gray-800 border border-gray-600 text-white px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent"
               />
             </label>
           </div>
@@ -114,7 +114,7 @@ export function PatientSelector({
               className={clsx(
                 'text-xs px-3 py-1.5 rounded font-medium transition-colors',
                 newLabel.trim() && !saving
-                  ? 'bg-accent-DEFAULT text-white hover:opacity-90'
+                  ? 'bg-accent text-white hover:opacity-90'
                   : 'bg-gray-700 text-gray-500 cursor-not-allowed',
               )}
             >

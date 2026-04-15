@@ -56,7 +56,7 @@ export function ModulePalette({ onAddModule }: Props) {
 
   return (
     <aside className="w-56 border-l border-gray-800 bg-[rgb(var(--color-surface-raised))] flex flex-col overflow-hidden shrink-0">
-      <div className="px-3 py-2 border-b border-gray-800 text-xs font-semibold text-accent-DEFAULT uppercase tracking-wide">
+      <div className="px-3 py-2 border-b border-gray-800 text-xs font-semibold text-accent uppercase tracking-wide">
         Modules
       </div>
       <div className="px-2 py-2 border-b border-gray-800">

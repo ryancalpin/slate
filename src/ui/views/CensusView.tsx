@@ -28,7 +28,7 @@ function CensusCard({ summary, onClick }: { summary: CensusSummary; onClick: () 
     <button
       type="button"
       onClick={onClick}
-      className="w-full text-left p-4 rounded-lg bg-[rgb(var(--color-surface-raised))] border border-gray-700 hover:border-accent-DEFAULT transition-colors space-y-3"
+      className="w-full text-left p-4 rounded-lg bg-[rgb(var(--color-surface-raised))] border border-gray-700 hover:border-accent transition-colors space-y-3"
     >
       <div className="flex items-start justify-between gap-2">
         <div>
@@ -114,11 +114,19 @@ export function CensusView() {
         )}
 
         {!loading && summaries.length === 0 && (
-          <div className="text-center py-20 text-gray-500">
-            <p className="text-lg">No open patients</p>
-            <p className="text-sm mt-1">
-              Open a template in Live Mode to see patients here.
+          <div className="text-center py-20 text-gray-500 space-y-4">
+            <p className="text-lg text-gray-300">No patients yet</p>
+            <p className="text-sm">
+              Create a template, add modules, then switch to{' '}
+              <span className="text-gray-300 font-medium">Live mode</span> to start entering patient data.
             </p>
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="inline-block mt-2 px-5 py-2 bg-accent text-white rounded text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              Go to My Templates
+            </button>
           </div>
         )}
 
