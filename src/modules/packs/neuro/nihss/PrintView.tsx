@@ -25,11 +25,12 @@ const ITEM_LABELS = [
 
 interface Props {
   config: Record<string, unknown>
-  data: { items: number[] }
+  data: Record<string, unknown>
 }
 
 export const PrintView: FC<Props> = ({ data }) => {
-  const items = data.items?.length === 15 ? data.items : Array(15).fill(0)
+  const raw = data as unknown as { items: number[] }
+  const items = raw.items?.length === 15 ? raw.items : Array(15).fill(0)
   const total = calcNIHSS(items)
   return (
     <div className="font-sans text-black text-sm">

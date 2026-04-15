@@ -24,18 +24,19 @@ interface ICPData {
 
 interface Props {
   config: Record<string, unknown>
-  data: ICPData
+  data: Record<string, unknown>
 }
 
 export const PrintView: FC<Props> = ({ data }) => {
+  const raw = data as unknown as ICPData
   const d: ICPData = {
-    icp: data.icp ?? 15,
-    map: data.map ?? 80,
-    cppTarget: data.cppTarget ?? 60,
-    pupilL: data.pupilL ?? { sizeMm: 3, reactivity: 'brisk' },
-    pupilR: data.pupilR ?? { sizeMm: 3, reactivity: 'brisk' },
-    evdEnabled: data.evdEnabled ?? false,
-    evd: data.evd ?? { refLevel: 0, drainThreshold: 20, drainRate: 0 },
+    icp: raw.icp ?? 15,
+    map: raw.map ?? 80,
+    cppTarget: raw.cppTarget ?? 60,
+    pupilL: raw.pupilL ?? { sizeMm: 3, reactivity: 'brisk' },
+    pupilR: raw.pupilR ?? { sizeMm: 3, reactivity: 'brisk' },
+    evdEnabled: raw.evdEnabled ?? false,
+    evd: raw.evd ?? { refLevel: 0, drainThreshold: 20, drainRate: 0 },
   }
   const cpp = calcCPP(d.map, d.icp)
 

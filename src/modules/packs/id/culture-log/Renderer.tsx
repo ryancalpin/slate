@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface Culture {
   date: string
   source: string
@@ -33,7 +31,7 @@ const emptyCulture = (): Culture => ({
 })
 
 export function CultureRenderer({ data, onDataChange, mode }: Props) {
-  const cultures: Culture[] = (data as CultureData).cultures ?? []
+  const cultures: Culture[] = (data as unknown as CultureData).cultures ?? []
 
   function update(index: number, field: keyof Culture, value: string) {
     const updated = cultures.map((c, i) => (i === index ? { ...c, [field]: value } : c))

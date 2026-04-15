@@ -1,4 +1,3 @@
-import React from 'react'
 import { TIR_CITATION, EA1C_CITATION, calcTIR, calcEA1c } from './index'
 
 interface GlucoseEntry {
@@ -18,7 +17,7 @@ interface Props {
 }
 
 export function GlucoseLogPrintView({ data }: Props) {
-  const d = data as GlucoseData
+  const d = data as unknown as GlucoseData
   const entries = d.entries ?? []
   const targetLow = d.targetLow ?? 70
   const targetHigh = d.targetHigh ?? 180

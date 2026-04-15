@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
 interface HDData { access: string; bfr: number; dfr: number; ufGoal: number; duration: number; anticoag: string }
 interface CRRTData { mode: string; effluentRate: number; replacementRate: number; anticoag: string; filterAge: number }

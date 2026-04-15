@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { InsulinInfusionRenderer } from './Renderer'
 import { InsulinInfusionEditor } from './Editor'
 import { InsulinInfusionPrintView } from './PrintView'

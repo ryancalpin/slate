@@ -14,7 +14,7 @@ interface StrokeData {
 
 interface Props {
   config: Record<string, unknown>
-  data: StrokeData
+  data: Record<string, unknown>
 }
 
 function fmt(ts: string): string {
@@ -39,15 +39,16 @@ function minLabel(min: number | null, target: number | null): string {
 }
 
 export const PrintView: FC<Props> = ({ data }) => {
+  const raw = data as unknown as StrokeData
   const d: StrokeData = {
-    lkw: data.lkw ?? '',
-    doorTime: data.doorTime ?? '',
-    ctTime: data.ctTime ?? '',
-    tpaDecision: data.tpaDecision ?? '',
-    tpaAdmin: data.tpaAdmin ?? '',
-    groinTime: data.groinTime ?? '',
-    recanalTime: data.recanalTime ?? '',
-    ticiGrade: data.ticiGrade ?? '',
+    lkw: raw.lkw ?? '',
+    doorTime: raw.doorTime ?? '',
+    ctTime: raw.ctTime ?? '',
+    tpaDecision: raw.tpaDecision ?? '',
+    tpaAdmin: raw.tpaAdmin ?? '',
+    groinTime: raw.groinTime ?? '',
+    recanalTime: raw.recanalTime ?? '',
+    ticiGrade: raw.ticiGrade ?? '',
   }
 
   const onsetToDoor = calcMinutesBetween(d.lkw, d.doorTime)

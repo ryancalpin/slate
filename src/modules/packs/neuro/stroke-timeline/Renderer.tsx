@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 export const CITATION =
@@ -28,7 +27,7 @@ interface StrokeData {
 interface Props {
   instanceId: string
   config: Record<string, unknown>
-  data: StrokeData
+  data: Record<string, unknown>
   onDataChange: (data: Record<string, unknown>) => void
   mode: 'build' | 'live'
 }
@@ -92,15 +91,16 @@ function TimestampRow({
 }
 
 export const Renderer: FC<Props> = ({ data, onDataChange, mode }) => {
+  const raw = data as unknown as StrokeData
   const d: StrokeData = {
-    lkw: data.lkw ?? '',
-    doorTime: data.doorTime ?? '',
-    ctTime: data.ctTime ?? '',
-    tpaDecision: data.tpaDecision ?? '',
-    tpaAdmin: data.tpaAdmin ?? '',
-    groinTime: data.groinTime ?? '',
-    recanalTime: data.recanalTime ?? '',
-    ticiGrade: data.ticiGrade ?? '',
+    lkw: raw.lkw ?? '',
+    doorTime: raw.doorTime ?? '',
+    ctTime: raw.ctTime ?? '',
+    tpaDecision: raw.tpaDecision ?? '',
+    tpaAdmin: raw.tpaAdmin ?? '',
+    groinTime: raw.groinTime ?? '',
+    recanalTime: raw.recanalTime ?? '',
+    ticiGrade: raw.ticiGrade ?? '',
   }
   const disabled = mode === 'build'
 

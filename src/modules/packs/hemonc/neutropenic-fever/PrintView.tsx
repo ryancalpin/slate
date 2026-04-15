@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 import { calcMASCC } from './Renderer'
 
@@ -33,7 +32,7 @@ interface Props {
 }
 
 export const NeutropenicFeverPrintView: FC<Props> = ({ data }) => {
-  const d = data as NeutropenicFeverData
+  const d = data as unknown as NeutropenicFeverData
   const masccItems = d.masccItems ?? {}
   const coverageChecklist = d.coverageChecklist ?? {}
   const score = calcMASCC(masccItems)

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { DKATrackerRenderer } from './Renderer'
 import { DKATrackerEditor } from './Editor'
 import { DKATrackerPrintView } from './PrintView'

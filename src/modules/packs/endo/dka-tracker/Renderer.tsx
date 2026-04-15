@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { CITATION, calcAnionGap, isDKAClosed } from './index'
 
 type Ketones = 'trace' | 'moderate' | 'large' | 'negative'
@@ -54,7 +54,7 @@ function CriterionRow({ label, met }: { label: string; met: boolean }) {
 }
 
 export function DKATrackerRenderer({ data, onDataChange, mode }: Props) {
-  const d = data as DKAData
+  const d = data as unknown as DKAData
   const entries = d.entries ?? []
   const patientEating = d.patientEating ?? false
   const disabled = mode === 'build'

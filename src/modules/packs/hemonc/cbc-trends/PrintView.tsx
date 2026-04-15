@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 import { findNadir } from './Renderer'
 import type { CBCEntry } from './Renderer'
@@ -20,7 +19,7 @@ const COLUMNS = [
 ]
 
 export const CBCTrendsPrintView: FC<Props> = ({ data }) => {
-  const d = data as CBCData
+  const d = data as unknown as CBCData
   const entries = d.entries ?? []
   const nadirMap: Record<string, number> = {}
   for (const col of COLUMNS) {

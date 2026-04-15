@@ -1,4 +1,4 @@
-import { ModulePlugin } from '../../../../core/plugin/types'
+import type { ModulePlugin } from '../../../../core/plugin/types'
 import { Renderer } from './Renderer'
 import { Editor } from './Editor'
 import { PrintView } from './PrintView'

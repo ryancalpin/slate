@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface Props {
   config: Record<string, unknown>
   onConfigChange: (config: Record<string, unknown>) => void

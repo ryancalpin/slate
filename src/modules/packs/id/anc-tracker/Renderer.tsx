@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CITATION =
   'NCCN Clinical Practice Guidelines in Oncology: Hematopoietic Growth Factors. Version 2.2023.'
 
@@ -44,7 +42,7 @@ const emptyEntry = (): AncEntry => ({
 })
 
 export function AncRenderer({ data, onDataChange, mode }: Props) {
-  const typed = data as AncData
+  const typed = data as unknown as AncData
   const entries: AncEntry[] = typed.entries ?? []
   const antifungals: string[] = typed.antifungals ?? []
   const antivirals: string[] = typed.antivirals ?? []

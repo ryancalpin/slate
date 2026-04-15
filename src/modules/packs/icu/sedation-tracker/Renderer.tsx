@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 
 const RASS_CITATION = 'Sessler CN et al. Am J Respir Crit Care Med. 2002;166(10):1338-1344'
 const CPOT_CITATION = 'Gélinas C et al. Am J Crit Care. 2006;15(4):420-427'
@@ -66,14 +66,14 @@ const SubscaleInput: FC<{
 )
 
 export const SedationRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as SedationData
+  const d = data as unknown as SedationData
   const rass = d.rass ?? 0
   const goalMin = d.goalRassMin ?? -2
   const goalMax = d.goalRassMax ?? 0
   const inGoal = rass >= goalMin && rass <= goalMax
 
   const cpotTotal = calcCPOT(d.cpotFace ?? 0, d.cpotBody ?? 0, d.cpotMuscle ?? 0, d.cpotCompliance ?? 0)
-  const rassLabel = RASS_LEVELS.find((r) => r.score === rass)?.label ?? ''
+
 
   const update = (fields: Partial<SedationData>) => onDataChange({ ...d, ...fields })
 

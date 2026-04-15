@@ -173,6 +173,12 @@ export function FreeformCanvas({
         style={{ minHeight: '2000px' }}
         data-testid="freeform-canvas"
       >
+        {layout.length === 0 && isBuildMode && (
+          <div className="flex flex-col items-center justify-center h-64 text-center select-none pointer-events-none">
+            <p className="text-gray-600 text-sm">Add a module from the panel →</p>
+            <p className="text-gray-700 text-xs mt-1">Drag freely to position anywhere</p>
+          </div>
+        )}
         {layout.map((instance) => (
           <DraggableModule
             key={instance.instanceId}

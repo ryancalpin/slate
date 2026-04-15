@@ -1,4 +1,4 @@
-import { ModulePlugin } from '../../../../core/plugin/types'
+import type { ModulePlugin } from '../../../../core/plugin/types'
 import { FeverRenderer } from './Renderer'
 import { FeverEditor } from './Editor'
 import { FeverPrintView } from './PrintView'

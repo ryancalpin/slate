@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { TIR_CITATION, EA1C_CITATION, calcTIR, calcEA1c } from './index'
 
 interface GlucoseEntry {
@@ -54,7 +54,7 @@ function Sparkline({
 }
 
 export function GlucoseLogRenderer({ data, onDataChange, mode }: Props) {
-  const d = data as GlucoseData
+  const d = data as unknown as GlucoseData
   const entries = d.entries ?? []
   const targetLow = d.targetLow ?? 70
   const targetHigh = d.targetHigh ?? 180

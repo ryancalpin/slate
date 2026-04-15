@@ -1,4 +1,3 @@
-import React from 'react'
 import { calcQSOFA } from './Renderer'
 
 const CITATION = 'Sepsis-3 Consensus: Singer M et al. JAMA 2016;315(8):801-810'

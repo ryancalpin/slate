@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { calcCPP } from './Renderer'
 import { Renderer } from './Renderer'
 
@@ -26,8 +26,8 @@ describe('ICP Monitor Renderer', () => {
     icp: 12,
     map: 80,
     cppTarget: 60,
-    pupilL: { sizeMm: 3, reactivity: 'brisk' },
-    pupilR: { sizeMm: 3, reactivity: 'brisk' },
+    pupilL: { sizeMm: 3, reactivity: 'brisk' as const },
+    pupilR: { sizeMm: 3, reactivity: 'brisk' as const },
     evdEnabled: false,
     evd: { refLevel: 0, drainThreshold: 20, drainRate: 0 },
   }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { classifyANC } from './Renderer'
 
 const CITATION =

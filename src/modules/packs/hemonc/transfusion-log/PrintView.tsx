@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 import type { Transfusion } from './Renderer'
 
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export const TransfusionLogPrintView: FC<Props> = ({ data }) => {
-  const d = data as TransfusionData
+  const d = data as unknown as TransfusionData
   const transfusions = d.transfusions ?? []
   return (
     <div className="text-xs space-y-1">

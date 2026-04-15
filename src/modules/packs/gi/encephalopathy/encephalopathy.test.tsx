@@ -34,11 +34,11 @@ describe('EncephalopathyRenderer', () => {
         mode="live"
       />
     )
-    expect(screen.getByText(/Grade 0/i)).toBeTruthy()
-    expect(screen.getByText(/Grade I/i)).toBeTruthy()
-    expect(screen.getByText(/Grade II/i)).toBeTruthy()
-    expect(screen.getByText(/Grade III/i)).toBeTruthy()
-    expect(screen.getByText(/Grade IV/i)).toBeTruthy()
+    expect(screen.getByText(/^Grade 0$/i)).toBeTruthy()
+    expect(screen.getByText(/^Grade I$/i)).toBeTruthy()
+    expect(screen.getByText(/^Grade II$/i)).toBeTruthy()
+    expect(screen.getByText(/^Grade III$/i)).toBeTruthy()
+    expect(screen.getByText(/^Grade IV$/i)).toBeTruthy()
   })
 
   it('displays criteria text for selected grade', () => {

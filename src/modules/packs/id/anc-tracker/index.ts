@@ -1,4 +1,4 @@
-import { ModulePlugin } from '../../../../core/plugin/types'
+import type { ModulePlugin } from '../../../../core/plugin/types'
 import { AncRenderer } from './Renderer'
 import { AncEditor } from './Editor'
 import { AncPrintView } from './PrintView'

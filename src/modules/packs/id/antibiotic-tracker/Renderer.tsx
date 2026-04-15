@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface Antibiotic {
   agent: string
   dose: string
@@ -43,7 +41,7 @@ const emptyAntibiotic = (): Antibiotic => ({
 })
 
 export function AntibioticRenderer({ data, onDataChange, mode }: Props) {
-  const typedData = data as AntibioticData
+  const typedData = data as unknown as AntibioticData
   const antibiotics: Antibiotic[] = typedData.antibiotics ?? []
 
   function update(index: number, field: keyof Antibiotic, value: unknown) {

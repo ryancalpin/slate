@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 interface Agent {
@@ -25,7 +24,7 @@ interface Props {
 }
 
 export const ChemoRegimenRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as ChemoData
+  const d = data as unknown as ChemoData
 
   const addAgent = () => {
     const newAgent: Agent = { drug: '', doseMgM2: 0, route: 'IV' }

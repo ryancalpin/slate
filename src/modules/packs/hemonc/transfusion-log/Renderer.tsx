@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 export interface Transfusion {
@@ -36,7 +35,7 @@ const REACTION_TYPES = [
 ]
 
 export const TransfusionLogRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as TransfusionData
+  const d = data as unknown as TransfusionData
   const transfusions = d.transfusions ?? []
 
   const addRow = () => {

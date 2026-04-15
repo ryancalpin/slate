@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 export const CITATION_MRS = 'van Swieten JC et al. Stroke. 1988;19(5):604-607'
@@ -71,7 +70,7 @@ interface Data {
 interface Props {
   instanceId: string
   config: Record<string, unknown>
-  data: Data
+  data: Record<string, unknown>
   onDataChange: (data: Record<string, unknown>) => void
   mode: 'build' | 'live'
 }
@@ -146,13 +145,14 @@ function GCSButtons({
 }
 
 export const Renderer: FC<Props> = ({ data, onDataChange, mode }) => {
+  const raw = data as unknown as Data
   const d: Data = {
-    mrs: data.mrs ?? 0,
-    gcsE: data.gcsE ?? 4,
-    gcsV: data.gcsV ?? 5,
-    gcsM: data.gcsM ?? 6,
-    huntHess: data.huntHess ?? 1,
-    fisherGrade: data.fisherGrade ?? 1,
+    mrs: raw.mrs ?? 0,
+    gcsE: raw.gcsE ?? 4,
+    gcsV: raw.gcsV ?? 5,
+    gcsM: raw.gcsM ?? 6,
+    huntHess: raw.huntHess ?? 1,
+    fisherGrade: raw.fisherGrade ?? 1,
   }
   const disabled = mode === 'build'
   const gcsTotal = calcGCS(d.gcsE, d.gcsV, d.gcsM)

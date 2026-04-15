@@ -1,4 +1,4 @@
-import { ModulePlugin } from '../../../../core/plugin/types'
+import type { ModulePlugin } from '../../../../core/plugin/types'
 import { CultureRenderer } from './Renderer'
 import { CultureEditor } from './Editor'
 import { CulturePrintView } from './PrintView'

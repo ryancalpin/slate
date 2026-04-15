@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface Culture {
   date: string
   source: string

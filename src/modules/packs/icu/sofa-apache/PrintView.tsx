@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 import { calcSOFA, calcAPACHEII } from './Renderer'
 
 const SOFA_CITATION = 'Singer M et al. JAMA. 2016;315(8):801-810'

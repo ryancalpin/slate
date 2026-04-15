@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CITATION = 'Sepsis-3 Consensus: Singer M et al. JAMA 2016;315(8):801-810'
 
 interface SepsisData {
@@ -23,7 +21,7 @@ export function calcQSOFA(rrHigh: boolean, ams: boolean, sbpLow: boolean): numbe
 }
 
 export function SepsisRenderer({ data, onDataChange }: Props) {
-  const typed = data as SepsisData
+  const typed = data as unknown as SepsisData
   const rrHigh = typed.rrHigh ?? false
   const ams = typed.ams ?? false
   const sbpLow = typed.sbpLow ?? false

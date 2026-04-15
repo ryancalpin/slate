@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 
 const SOFA_CITATION = 'Singer M et al. JAMA. 2016;315(8):801-810'
 const APACHE_CITATION = 'Knaus WA et al. Crit Care Med. 1985;13(10):818-829'
@@ -126,7 +126,7 @@ const ScoreSelector: FC<{
 )
 
 export const SofaApacheRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as SofaApacheData
+  const d = data as unknown as SofaApacheData
   const sofa: SofaScores = d.sofa ?? {
     pf: 0, platelets: 0, bilirubin: 0, cardio: 0, gcs: 0, creatinine: 0, uoPerDay: 0,
   }

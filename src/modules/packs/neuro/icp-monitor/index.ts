@@ -1,4 +1,5 @@
-import type { ModulePlugin } from '../../../../core/plugin/types'
+import type { FC } from 'react'
+import type { ModulePlugin, ModuleRenderProps, ModulePrintProps } from '../../../../core/plugin/types'
 import { Renderer } from './Renderer'
 import { Editor } from './Editor'
 import { PrintView } from './PrintView'
@@ -29,7 +30,7 @@ export const icpMonitorPlugin: ModulePlugin = {
   },
   defaultConfig: { cppTarget: 60 },
   minSize: { w: 3, h: 7 },
-  Renderer,
+  Renderer: Renderer as FC<ModuleRenderProps>,
   Editor,
-  PrintView,
+  PrintView: PrintView as FC<ModulePrintProps>,
 }

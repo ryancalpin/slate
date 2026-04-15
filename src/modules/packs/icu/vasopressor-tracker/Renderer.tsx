@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 
 const AGENTS = [
   'norepinephrine',
@@ -55,7 +55,7 @@ const defaultPressor = (): Pressor => ({
 })
 
 export const VasopressorRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const typedData = data as VasopressorData
+  const typedData = data as unknown as VasopressorData
   const pressors: Pressor[] = typedData.pressors ?? []
   const mapReadings: MapReading[] = typedData.mapReadings ?? []
   const trend = getTrend(mapReadings)

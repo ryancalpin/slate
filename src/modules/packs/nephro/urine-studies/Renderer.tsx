@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
 const CITATION_FENA = 'Miller TR et al. Ann Intern Med. 1978;89(1):47-50'
 const CITATION_FEUREA = 'Carvounis CP et al. Am J Kidney Dis. 2002;39(3):455-462'

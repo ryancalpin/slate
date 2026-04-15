@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 
 const CITATION = 'Girard TD et al. Lancet. 2008;371(9607):126-134'
 
@@ -36,7 +36,7 @@ interface Props {
 }
 
 export const SatSbtRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as SatSbtData
+  const d = data as unknown as SatSbtData
   const satScreen = d.satScreen ?? {}
   const sbtScreen = d.sbtScreen ?? {}
 

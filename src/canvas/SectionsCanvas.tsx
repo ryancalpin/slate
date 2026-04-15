@@ -185,6 +185,12 @@ export function SectionsCanvas({
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext items={sections.map((s) => s.id)} strategy={verticalListSortingStrategy}>
         <div className="flex flex-col gap-4 p-4" data-testid="sections-canvas">
+          {rawSections.length === 0 && layout.length === 0 && isBuildMode && (
+            <div className="flex flex-col items-center justify-center h-64 text-center select-none pointer-events-none">
+              <p className="text-gray-600 text-sm">Add a module from the panel →</p>
+              <p className="text-gray-700 text-xs mt-1">Modules are grouped into named sections</p>
+            </div>
+          )}
           {sections.map((section) => {
             const instances = section.instanceIds
               .map((id) => layout.find((l) => l.instanceId === id))

@@ -1,4 +1,4 @@
-import { ModulePlugin } from '../../../../core/plugin/types'
+import type { ModulePlugin } from '../../../../core/plugin/types'
 import { AntibioticRenderer } from './Renderer'
 import { AntibioticEditor } from './Editor'
 import { AntibioticPrintView } from './PrintView'

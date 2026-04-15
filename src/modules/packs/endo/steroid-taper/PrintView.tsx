@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface ScheduleRow {
   date: string
   dose: number
@@ -21,7 +19,7 @@ const ADVISORY_NOTE =
   'Prolonged high-dose corticosteroid therapy may suppress the HPA axis. Consider adrenal insufficiency in the event of physiologic stress. Taper slowly and reassess.'
 
 export function SteroidTaperPrintView({ data }: Props) {
-  const d = data as TaperData
+  const d = data as unknown as TaperData
   const schedule = d.schedule ?? []
   const todayStr = new Date().toISOString().slice(0, 10)
 

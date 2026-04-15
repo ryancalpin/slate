@@ -1,4 +1,3 @@
-import React from 'react'
 import { CITATION, calcTimeAtGoal } from './index'
 
 interface GlucoseEntry {
@@ -20,7 +19,7 @@ interface Props {
 }
 
 export function InsulinInfusionPrintView({ data }: Props) {
-  const d = data as InsulinData
+  const d = data as unknown as InsulinData
   const entries = d.glucoseEntries ?? []
   const targetLow = d.targetLow ?? 140
   const targetHigh = d.targetHigh ?? 180

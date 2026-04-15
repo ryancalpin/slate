@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 import { calcCPOT } from './Renderer'
 
 const RASS_CITATION = 'Sessler CN et al. Am J Respir Crit Care Med. 2002;166(10):1338-1344'

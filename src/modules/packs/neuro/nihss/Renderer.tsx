@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 export const CITATION = 'Brott T et al. Stroke. 1989;20(7):864-870'
@@ -189,13 +188,14 @@ const NIHSS_ITEMS: NIHSSItem[] = [
 interface Props {
   instanceId: string
   config: Record<string, unknown>
-  data: { items: number[] }
+  data: Record<string, unknown>
   onDataChange: (data: Record<string, unknown>) => void
   mode: 'build' | 'live'
 }
 
 export const Renderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const items: number[] = data.items?.length === 15 ? data.items : Array(15).fill(0)
+  const raw = data as unknown as { items: number[] }
+  const items: number[] = raw.items?.length === 15 ? raw.items : Array(15).fill(0)
   const total = calcNIHSS(items)
 
   const setItem = (idx: number, value: number | 'UN') => {

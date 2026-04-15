@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 interface Agent {
@@ -22,7 +21,7 @@ interface Props {
 }
 
 export const ChemoRegimenPrintView: FC<Props> = ({ data }) => {
-  const d = data as ChemoData
+  const d = data as unknown as ChemoData
   return (
     <div className="text-sm space-y-2">
       <div className="font-bold text-base">

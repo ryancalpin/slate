@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { calcFENa, calcFEUrea } from './Renderer'
 
 const CITATION_FENA = 'Miller TR et al. Ann Intern Med. 1978;89(1):47-50'

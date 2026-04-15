@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface TempEntry {
   timestamp: string
   tempC: number

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { GlucoseLogRenderer } from './Renderer'
 import { GlucoseLogEditor } from './Editor'
 import { GlucoseLogPrintView } from './PrintView'

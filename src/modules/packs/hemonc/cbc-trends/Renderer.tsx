@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 export interface CBCEntry {
@@ -60,7 +59,7 @@ function Sparkline({ values }: { values: number[] }) {
 }
 
 export const CBCTrendsRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as CBCData
+  const d = data as unknown as CBCData
   const entries = d.entries ?? []
 
   const addRow = () => {

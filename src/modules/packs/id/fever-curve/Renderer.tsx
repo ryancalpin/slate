@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface TempEntry {
   timestamp: string
   tempC: number
@@ -29,7 +27,7 @@ function getBarHeight(tempC: number, min: number, max: number): number {
 }
 
 export function FeverRenderer({ data, onDataChange, mode }: Props) {
-  const typed = data as FeverData
+  const typed = data as unknown as FeverData
   const entries: TempEntry[] = typed.entries ?? []
   const threshold: number = typed.feverThresholdC ?? 38.0
 

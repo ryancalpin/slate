@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface Antibiotic {
   agent: string
   dose: string

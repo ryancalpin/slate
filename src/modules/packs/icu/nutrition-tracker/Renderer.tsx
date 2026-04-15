@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 
 export function calcPctGoal(current: number, goal: number): number {
   if (goal === 0) return 0
@@ -32,7 +32,7 @@ const ProgressBar: FC<{ pct: number; color: string }> = ({ pct, color }) => (
 )
 
 export const NutritionRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as NutritionData
+  const d = data as unknown as NutritionData
   const feedMode = d.mode ?? 'EN'
   const weight = d.weightKg ?? 70
   const kcalPerKg = d.kcalGoalPerKg ?? 25

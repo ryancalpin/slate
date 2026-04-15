@@ -1,11 +1,11 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 
 interface Props {
   config: Record<string, unknown>
   onConfigChange: (config: Record<string, unknown>) => void
 }
 
-export const SatSbtEditor: FC<Props> = ({ config, onConfigChange }) => {
+export const SatSbtEditor: FC<Props> = ({ config: _config, onConfigChange: _onConfigChange }) => {
   return (
     <div className="p-3 space-y-3">
       <h4 className="text-sm font-semibold text-gray-200">SAT/SBT Readiness Settings</h4>

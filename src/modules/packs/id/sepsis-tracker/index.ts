@@ -1,4 +1,4 @@
-import { ModulePlugin } from '../../../../core/plugin/types'
+import type { ModulePlugin } from '../../../../core/plugin/types'
 import { SepsisRenderer } from './Renderer'
 import { SepsisEditor } from './Editor'
 import { SepsisPrintView } from './PrintView'

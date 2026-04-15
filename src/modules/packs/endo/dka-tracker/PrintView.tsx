@@ -1,4 +1,3 @@
-import React from 'react'
 import { CITATION, calcAnionGap, isDKAClosed } from './index'
 
 type Ketones = 'trace' | 'moderate' | 'large' | 'negative'
@@ -23,7 +22,7 @@ interface Props {
 }
 
 export function DKATrackerPrintView({ data }: Props) {
-  const d = data as DKAData
+  const d = data as unknown as DKAData
   const entries = d.entries ?? []
   const patientEating = d.patientEating ?? false
   const lastEntry = entries[entries.length - 1]

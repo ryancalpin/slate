@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { SteroidTaperRenderer } from './Renderer'
 import { SteroidTaperEditor } from './Editor'
 import { SteroidTaperPrintView } from './PrintView'

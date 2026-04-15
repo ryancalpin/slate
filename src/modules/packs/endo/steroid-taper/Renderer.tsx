@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 interface ScheduleRow {
   date: string
@@ -24,7 +24,7 @@ const ADVISORY_NOTE =
   'Prolonged high-dose corticosteroid therapy may suppress the HPA axis. Consider adrenal insufficiency in the event of physiologic stress. Taper slowly and reassess.'
 
 export function SteroidTaperRenderer({ data, onDataChange, mode }: Props) {
-  const d = data as TaperData
+  const d = data as unknown as TaperData
   const schedule = d.schedule ?? []
   const prolongedHighDose = d.prolongedHighDose ?? false
   const disabled = mode === 'build'

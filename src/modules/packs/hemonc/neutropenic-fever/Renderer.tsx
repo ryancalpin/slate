@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 
 const CITATION = 'Freifeld AG et al. Clin Infect Dis. 2011;52(4):e56-e93'
@@ -38,8 +37,8 @@ export function calcMASCC(items: Record<string, boolean>): number {
   return MASCC_ITEMS.reduce((sum, item) => sum + (items[item.key] ? item.points : 0), 0)
 }
 
-export const NeutropenicFeverRenderer: FC<Props> = ({ data, onDataChange, mode }) => {
-  const d = data as NeutropenicFeverData
+export const NeutropenicFeverRenderer: FC<Props> = ({ data, onDataChange, mode: _mode }) => {
+  const d = data as unknown as NeutropenicFeverData
   const masccItems = d.masccItems ?? {}
   const coverageChecklist = d.coverageChecklist ?? {}
 
