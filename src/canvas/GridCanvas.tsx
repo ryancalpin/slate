@@ -1,23 +1,16 @@
-import { useState, useRef } from 'react'
-import {
-  DndContext,
-  PointerSensor,
-  TouchSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-  type Modifier,
-} from '@dnd-kit/core'
+import { useState } from 'react'
+import { GridLayout, useContainerWidth } from 'react-grid-layout'
+import type { Layout, LayoutItem } from 'react-grid-layout'
+import 'react-grid-layout/css/styles.css'
+import 'react-resizable/css/styles.css'
 import { CanvasModule } from './CanvasModule'
-import { pixelToGrid, clampToGrid, GRID_ROW_HEIGHT, GRID_COL_WIDTH, GRID_GAP, GRID_COLS } from './canvasUtils'
+import { pixelToGrid } from './canvasUtils'
 import { ContextMenu } from '../ui/components/ContextMenu'
-import type { TemplatePage, ModuleInstance, AppMode, ModulePosition } from '../core/template/types'
+import type { TemplatePage, ModuleInstance, AppMode } from '../core/template/types'
 
-const snapToGridModifier: Modifier = ({ transform }) => ({
-  ...transform,
-  x: Math.round(transform.x / (GRID_COL_WIDTH + GRID_GAP)) * (GRID_COL_WIDTH + GRID_GAP),
-  y: Math.round(transform.y / (GRID_ROW_HEIGHT + GRID_GAP)) * (GRID_ROW_HEIGHT + GRID_GAP),
-})
+const COLS = 12
+const ROW_HEIGHT = 60
+const MARGIN: readonly [number, number] = [8, 8]
 
 interface Props {
   page: TemplatePage
@@ -29,37 +22,38 @@ interface Props {
 }
 
 export function GridCanvas({ page, mode, data, onPageChange, onDataChange, onAddModule }: Props) {
-  const canvasRef = useRef<HTMLDivElement>(null)
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null)
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 5 } }),
-  )
+  const { width, containerRef, mounted } = useContainerWidth({ initialWidth: 960 })
 
   const updateLayout = (updater: (layout: ModuleInstance[]) => ModuleInstance[]) => {
     onPageChange({ ...page, layout: updater(page.layout) })
   }
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, delta } = event
-    if (!delta) return
+  const rglLayout: Layout = page.layout.map((inst): LayoutItem => ({
+    i: inst.instanceId,
+    x: inst.position.x,
+    y: inst.position.y,
+    w: inst.position.w,
+    h: inst.position.h,
+    isDraggable: mode === 'build' && !inst.locked,
+    isResizable: mode === 'build' && !inst.locked,
+  }))
 
-    updateLayout(layout =>
-      layout.map(inst => {
-        if (inst.instanceId !== active.id || inst.locked) return inst
-        const deltaGridX = Math.round(delta.x / (GRID_COL_WIDTH + GRID_GAP))
-        const deltaGridY = Math.round(delta.y / (GRID_ROW_HEIGHT + GRID_GAP))
-        return {
-          ...inst,
-          position: clampToGrid({
-            ...inst.position,
-            x: inst.position.x + deltaGridX,
-            y: inst.position.y + deltaGridY,
-          }),
-        }
-      })
-    )
+  const handleLayoutChange = (newLayout: Layout) => {
+    const updatedLayout = page.layout.map(inst => {
+      const rgl = newLayout.find((l: LayoutItem) => l.i === inst.instanceId)
+      if (!rgl) return inst
+      return {
+        ...inst,
+        position: {
+          x: rgl.x,
+          y: rgl.y,
+          w: rgl.w,
+          h: rgl.h,
+        },
+      }
+    })
+    onPageChange({ ...page, layout: updatedLayout })
   }
 
   const handleToggleLock = (instanceId: string) => {
@@ -90,53 +84,47 @@ export function GridCanvas({ page, mode, data, onPageChange, onDataChange, onAdd
     )
   }
 
-  const handleResize = (instanceId: string, position: ModulePosition) => {
-    updateLayout(layout =>
-      layout.map(inst =>
-        inst.instanceId === instanceId ? { ...inst, position: clampToGrid(position) } : inst
-      )
-    )
-  }
-
-  // Canvas height: enough to fit all modules plus scrolling room
-  const maxBottom = page.layout.reduce(
-    (max, inst) => Math.max(max, inst.position.y + inst.position.h),
-    0
-  )
-  const canvasHeight = Math.max(600, (maxBottom + 4) * (GRID_ROW_HEIGHT + GRID_GAP))
-
   return (
-    <DndContext sensors={sensors} modifiers={[snapToGridModifier]} onDragEnd={handleDragEnd}>
-      <div
-        ref={canvasRef}
-        className="relative overflow-auto"
-        style={{ height: canvasHeight, minWidth: GRID_COLS * (GRID_COL_WIDTH + GRID_GAP) }}
-        onContextMenu={mode === 'build' ? (e) => {
-          e.preventDefault()
-          setContextMenu({ x: e.clientX, y: e.clientY })
-        } : undefined}
-      >
-        {page.layout.length === 0 && mode === 'build' && (
-          <div className="flex flex-col items-center justify-center h-64 text-center select-none pointer-events-none">
-            <p className="text-gray-600 text-sm">Add a module from the panel →</p>
-            <p className="text-gray-700 text-xs mt-1">Drag to reposition, drag corner to resize</p>
-          </div>
-        )}
-        {page.layout.map(instance => (
-          <CanvasModule
-            key={instance.instanceId}
-            instance={instance}
-            mode={mode}
-            data={data[instance.instanceId] ?? {}}
-            onDataChange={onDataChange}
-            onConfigChange={handleConfigChange}
-            onToggleLock={handleToggleLock}
-            onToggleCollapse={handleToggleCollapse}
-            onRemove={handleRemove}
-            onResize={handleResize}
-          />
-        ))}
-      </div>
+    <div
+      ref={containerRef}
+      className="relative overflow-auto"
+      onContextMenu={mode === 'build' ? (e) => {
+        e.preventDefault()
+        setContextMenu({ x: e.clientX, y: e.clientY })
+      } : undefined}
+    >
+      {page.layout.length === 0 && mode === 'build' && (
+        <div className="flex flex-col items-center justify-center h-64 text-center select-none pointer-events-none">
+          <p className="text-gray-600 text-sm">Add a module from the panel →</p>
+          <p className="text-gray-700 text-xs mt-1">Drag to reposition, drag corner to resize</p>
+        </div>
+      )}
+      {mounted && (
+        <GridLayout
+          width={width}
+          layout={rglLayout}
+          gridConfig={{ cols: COLS, rowHeight: ROW_HEIGHT, margin: MARGIN, containerPadding: null, maxRows: Infinity }}
+          dragConfig={{ enabled: mode === 'build', handle: '.drag-handle', bounded: false, cancel: 'button', threshold: 5 }}
+          resizeConfig={{ enabled: mode === 'build' }}
+          onLayoutChange={handleLayoutChange}
+          autoSize
+        >
+          {page.layout.map(instance => (
+            <div key={instance.instanceId}>
+              <CanvasModule
+                instance={instance}
+                mode={mode}
+                data={data[instance.instanceId] ?? {}}
+                onDataChange={onDataChange}
+                onConfigChange={handleConfigChange}
+                onToggleLock={handleToggleLock}
+                onToggleCollapse={handleToggleCollapse}
+                onRemove={handleRemove}
+              />
+            </div>
+          ))}
+        </GridLayout>
+      )}
       {contextMenu && mode === 'build' && onAddModule && (
         <ContextMenu
           x={contextMenu.x}
@@ -145,7 +133,7 @@ export function GridCanvas({ page, mode, data, onPageChange, onDataChange, onAdd
           onClose={() => setContextMenu(null)}
         />
       )}
-    </DndContext>
+    </div>
   )
 }
 

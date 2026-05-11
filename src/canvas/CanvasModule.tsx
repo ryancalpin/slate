@@ -1,7 +1,4 @@
-import { useState, type CSSProperties } from 'react'
-import { useDraggable } from '@dnd-kit/core'
-import { gridToPixel } from './canvasUtils'
-import { ResizeHandle } from './ResizeHandle'
+import { useState } from 'react'
 import { pluginRegistry } from '../core/plugin/registry'
 import type { ModuleInstance, AppMode, ModulePosition } from '../core/template/types'
 
@@ -14,34 +11,20 @@ interface Props {
   onToggleLock: (instanceId: string) => void
   onToggleCollapse: (instanceId: string) => void
   onRemove: (instanceId: string) => void
-  onResize: (instanceId: string, position: ModulePosition) => void
+  /** @deprecated Used by FreeformCanvas/SectionsCanvas only — RGL handles resize in GridCanvas */
+  onResize?: (instanceId: string, position: ModulePosition) => void
 }
 
 export function CanvasModule({
   instance, mode, data, onDataChange, onConfigChange,
-  onToggleLock, onToggleCollapse, onRemove, onResize,
+  onToggleLock, onToggleCollapse, onRemove,
 }: Props) {
-  // All hooks must be called before any early return (Rules of Hooks)
   const [showEditor, setShowEditor] = useState(false)
   const plugin = pluginRegistry.get(instance.moduleId)
-  const isDraggable = mode === 'build' && !instance.locked
-
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: instance.instanceId,
-    disabled: !isDraggable,
-  })
-
-  const style: CSSProperties = {
-    ...gridToPixel(instance.position),
-    ...(transform ? { transform: `translate(${transform.x}px, ${transform.y}px)` } : {}),
-    zIndex: isDragging ? 50 : 1,
-    opacity: isDragging ? 0.8 : 1,
-    transition: isDragging ? 'none' : 'box-shadow 0.15s',
-  }
 
   if (!plugin) {
     return (
-      <div style={style} className="absolute bg-red-900 border border-red-700 rounded p-2 text-xs text-red-300">
+      <div className="flex flex-col h-full bg-red-900 border border-red-700 rounded p-2 text-xs text-red-300">
         Unknown module: {instance.moduleId}
       </div>
     )
@@ -51,16 +34,15 @@ export function CanvasModule({
 
   return (
     <div
-      ref={setNodeRef}
-      style={style}
-      className={`absolute flex flex-col group bg-[rgb(var(--color-surface-raised))] border rounded overflow-hidden ${
-        isDragging ? 'shadow-2xl border-accent' : 'border-gray-800 hover:border-gray-600'
-      } ${instance.locked ? 'border-yellow-800' : ''}`}
+      className={`flex flex-col h-full group bg-[rgb(var(--color-surface-raised))] border rounded overflow-hidden ${
+        instance.locked ? 'border-yellow-800' : 'border-gray-800 hover:border-gray-600'
+      }`}
     >
-      {/* Module header */}
+      {/* Module header — drag-handle class used by RGL draggableHandle */}
       <div
-        className="flex items-center justify-between px-2 py-1 bg-black/20 shrink-0 select-none"
-        {...(isDraggable ? { ...attributes, ...listeners, style: { cursor: 'grab' } } : {})}
+        className={`drag-handle flex items-center justify-between px-2 py-1 bg-black/20 shrink-0 select-none ${
+          mode === 'build' && !instance.locked ? 'cursor-grab' : ''
+        }`}
       >
         <span className="text-xs font-semibold text-accent truncate">{plugin.meta.name.toUpperCase()}</span>
         {mode === 'build' ? (
@@ -99,15 +81,6 @@ export function CanvasModule({
             />
           )}
         </div>
-      )}
-
-      {mode === 'build' && !instance.locked && (
-        <ResizeHandle
-          position={instance.position}
-          minW={plugin.minSize.w}
-          minH={plugin.minSize.h}
-          onResize={newPos => onResize(instance.instanceId, newPos)}
-        />
       )}
     </div>
   )
