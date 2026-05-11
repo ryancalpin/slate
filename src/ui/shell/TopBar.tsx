@@ -26,7 +26,7 @@ export function TopBar({ mode, onModeToggle, templateId }: Props) {
   return (
     <header className="flex items-center justify-between px-4 h-12 border-b border-gray-800 bg-[rgb(var(--color-surface-raised))] shrink-0">
       <Link to="/" className="text-accent font-bold text-sm tracking-wide select-none">
-        PatientTemplates
+        Slate
       </Link>
       <div className="flex items-center gap-3">
         {templateId && (

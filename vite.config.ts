@@ -8,9 +8,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Patient Template Builder',
-        short_name: 'PatientTemplates',
-        description: 'Customizable inpatient clinical templates',
+        name: 'Slate',
+        short_name: 'Slate',
+        description: 'Drag-and-drop inpatient clinical template builder',
         theme_color: '#0f0f1a',
         background_color: '#0f0f1a',
         display: 'standalone',
