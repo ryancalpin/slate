@@ -7,7 +7,7 @@ export default defineConfig({
   workers: 1,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: 'http://localhost:4173',
+    baseURL: 'https://slate.vercel.app',
     headless: true,
     screenshot: 'only-on-failure',
     video: 'off',
