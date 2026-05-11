@@ -27,7 +27,7 @@ const CellInput: FC<{
 )
 
 export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
-  const cfg = config as { showGlucose?: boolean; showMgPhos?: boolean }
+  const cfg = config as { showGlucose?: boolean; showMgPhos?: boolean; showCBC?: boolean }
   const isLive = mode === 'live'
 
   const handleChange = useCallback(
@@ -51,24 +51,40 @@ export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
 
   return (
     <div className="p-2 flex flex-col gap-2 font-mono text-sm">
-      {/* Main fishbone grid */}
-      <div className="flex items-stretch gap-0">
-        {/* Left 2x2: Na/K | Cl/CO2 */}
-        <div className="grid grid-cols-2 border border-gray-400 dark:border-gray-600" style={{ width: 120 }}>
-          <div className="border-b border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('na', 'Na')}</div>
-          <div className="border-b border-gray-400 dark:border-gray-600 p-0.5">{cell('cl', 'Cl')}</div>
-          <div className="border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('k', 'K')}</div>
-          <div className="p-0.5">{cell('co2', 'CO2')}</div>
-        </div>
-        {/* Right 2x2: BUN/Cr with divider */}
-        <div className="grid grid-cols-2 border-t border-b border-r border-gray-400 dark:border-gray-600" style={{ width: 100 }}>
-          <div className="border-b border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('bun', 'BUN')}</div>
-          <div className="border-b border-gray-400 dark:border-gray-600 p-0.5 text-center">
-            {cfg.showGlucose !== false ? cell('glucose', 'Glu') : null}
+      {/* Main fishbone row: BMP + optional CBC side by side */}
+      <div className="flex items-stretch gap-2 flex-wrap">
+        {/* BMP block */}
+        <div className="flex items-stretch gap-0">
+          {/* Left 2x2: Na/K | Cl/CO2 */}
+          <div className="grid grid-cols-2 border border-gray-400 dark:border-gray-600" style={{ width: 120 }}>
+            <div className="border-b border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('na', 'Na')}</div>
+            <div className="border-b border-gray-400 dark:border-gray-600 p-0.5">{cell('cl', 'Cl')}</div>
+            <div className="border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('k', 'K')}</div>
+            <div className="p-0.5">{cell('co2', 'CO2')}</div>
           </div>
-          <div className="border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('cr', 'Cr')}</div>
-          <div className="p-0.5" />
+          {/* Right 2x2: BUN/Cr | Glu */}
+          <div className="grid grid-cols-2 border-t border-b border-r border-gray-400 dark:border-gray-600" style={{ width: 100 }}>
+            <div className="border-b border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('bun', 'BUN')}</div>
+            <div className="border-b border-gray-400 dark:border-gray-600 p-0.5">
+              {cfg.showGlucose !== false ? cell('glucose', 'Glu') : null}
+            </div>
+            <div className="border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('cr', 'Cr')}</div>
+            <div className="p-0.5" />
+          </div>
         </div>
+
+        {/* CBC block */}
+        {cfg.showCBC && (
+          <div className="flex items-stretch gap-0">
+            <div className="flex flex-col justify-center px-1 text-xs text-gray-400 select-none">CBC</div>
+            <div className="grid grid-cols-2 border border-gray-400 dark:border-gray-600" style={{ width: 110 }}>
+              <div className="border-b border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('wbc', 'WBC')}</div>
+              <div className="border-b border-gray-400 dark:border-gray-600 p-0.5">{cell('hgb', 'Hgb')}</div>
+              <div className="border-r border-gray-400 dark:border-gray-600 p-0.5">{cell('plt', 'Plt')}</div>
+              <div className="p-0.5">{cell('hct', 'Hct')}</div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Mg / Phos row */}

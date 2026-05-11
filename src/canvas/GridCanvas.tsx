@@ -6,11 +6,18 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
+  type Modifier,
 } from '@dnd-kit/core'
 import { CanvasModule } from './CanvasModule'
-import { pixelToGrid, clampToGrid, GRID_ROW_HEIGHT, GRID_COL_WIDTH, GRID_GAP } from './canvasUtils'
+import { pixelToGrid, clampToGrid, GRID_ROW_HEIGHT, GRID_COL_WIDTH, GRID_GAP, GRID_COLS } from './canvasUtils'
 import { ContextMenu } from '../ui/components/ContextMenu'
 import type { TemplatePage, ModuleInstance, AppMode, ModulePosition } from '../core/template/types'
+
+const snapToGridModifier: Modifier = ({ transform }) => ({
+  ...transform,
+  x: Math.round(transform.x / (GRID_COL_WIDTH + GRID_GAP)) * (GRID_COL_WIDTH + GRID_GAP),
+  y: Math.round(transform.y / (GRID_ROW_HEIGHT + GRID_GAP)) * (GRID_ROW_HEIGHT + GRID_GAP),
+})
 
 interface Props {
   page: TemplatePage
@@ -99,11 +106,11 @@ export function GridCanvas({ page, mode, data, onPageChange, onDataChange, onAdd
   const canvasHeight = Math.max(600, (maxBottom + 4) * (GRID_ROW_HEIGHT + GRID_GAP))
 
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} modifiers={[snapToGridModifier]} onDragEnd={handleDragEnd}>
       <div
         ref={canvasRef}
-        className="relative w-full overflow-auto"
-        style={{ height: canvasHeight }}
+        className="relative overflow-auto"
+        style={{ height: canvasHeight, minWidth: GRID_COLS * (GRID_COL_WIDTH + GRID_GAP) }}
         onContextMenu={mode === 'build' ? (e) => {
           e.preventDefault()
           setContextMenu({ x: e.clientX, y: e.clientY })

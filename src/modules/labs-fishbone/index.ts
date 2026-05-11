@@ -16,8 +16,9 @@ export const labsFishbonePlugin: ModulePlugin = {
   defaultConfig: {
     showGlucose: true,
     showMgPhos: false,
+    showCBC: true,
   },
-  minSize: { w: 3, h: 3 },
+  minSize: { w: 4, h: 3 },
   Renderer,
   Editor,
   PrintView,

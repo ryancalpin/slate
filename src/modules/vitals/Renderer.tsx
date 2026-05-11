@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import type { FC } from 'react'
+import { SortableRows } from '../../canvas/SortableRows'
 
 interface NormalRange { min?: number; max?: number }
 
@@ -102,53 +103,57 @@ export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
     )
   }
 
-  return (
-    <div className="p-2 flex flex-wrap gap-2">
-      <VitalCell field="hr" label="HR" unit="bpm" show={cfg.showHr !== false} prevField="prevHr" />
-      {cfg.showBp !== false && (
-        <div className="flex flex-col items-center p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 min-w-[80px]">
-          <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">BP</span>
-          <div className="flex items-center gap-1">
-            {isLive ? (
-              <>
-                <input
-                  type="number"
-                  value={(data.sbp as number) ?? ''}
-                  onChange={e => handleChange('sbp', e.target.value)}
-                  className="w-12 text-center text-lg font-semibold bg-transparent border-none outline-none"
-                  placeholder="—"
-                />
-                <span className="text-gray-400">/</span>
-                <input
-                  type="number"
-                  value={(data.dbp as number) ?? ''}
-                  onChange={e => handleChange('dbp', e.target.value)}
-                  className="w-12 text-center text-lg font-semibold bg-transparent border-none outline-none"
-                  placeholder="—"
-                />
-              </>
-            ) : (
-              <span className="text-lg font-semibold text-gray-400">—/—</span>
-            )}
+  const fieldOrder = (data._fieldOrder as string[] | undefined) ?? ['hr', 'bp', 'rr', 'temp', 'spo2', 'weight']
+  const isBuild = mode === 'build'
+
+  const renderField = (fieldKey: string) => {
+    switch (fieldKey) {
+      case 'hr':
+        return <VitalCell field="hr" label="HR" unit="bpm" show={cfg.showHr !== false} prevField="prevHr" />
+      case 'bp':
+        return cfg.showBp !== false ? (
+          <div className="flex flex-col items-center p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 min-w-[80px]">
+            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">BP</span>
+            <div className="flex items-center gap-1">
+              {isLive ? (
+                <>
+                  <input type="number" value={(data.sbp as number) ?? ''} onChange={e => handleChange('sbp', e.target.value)} className="w-12 text-center text-lg font-semibold bg-transparent border-none outline-none" placeholder="—" />
+                  <span className="text-gray-400">/</span>
+                  <input type="number" value={(data.dbp as number) ?? ''} onChange={e => handleChange('dbp', e.target.value)} className="w-12 text-center text-lg font-semibold bg-transparent border-none outline-none" placeholder="—" />
+                </>
+              ) : (
+                <span className="text-lg font-semibold text-gray-400">—/—</span>
+              )}
+            </div>
+            <span className="text-xs text-gray-400">mmHg</span>
           </div>
-          <span className="text-xs text-gray-400">mmHg</span>
-        </div>
-      )}
-      <VitalCell field="rr" label="RR" unit="br/min" show={cfg.showRr !== false} prevField="prevRr" />
-      <VitalCell
-        field="temp"
-        label="Temp"
-        unit={cfg.tempUnit === 'C' ? '°C' : '°F'}
-        show={cfg.showTemp !== false}
-        prevField="prevTemp"
-      />
-      <VitalCell field="spo2" label="SpO2" unit="%" show={cfg.showSpo2 !== false} prevField="prevSpo2" />
-      <VitalCell
-        field="weight"
-        label="Weight"
-        unit={cfg.weightUnit === 'lbs' ? 'lbs' : 'kg'}
-        show={cfg.showWeight !== false}
-      />
+        ) : null
+      case 'rr':
+        return <VitalCell field="rr" label="RR" unit="br/min" show={cfg.showRr !== false} prevField="prevRr" />
+      case 'temp':
+        return <VitalCell field="temp" label="Temp" unit={cfg.tempUnit === 'C' ? '°C' : '°F'} show={cfg.showTemp !== false} prevField="prevTemp" />
+      case 'spo2':
+        return <VitalCell field="spo2" label="SpO2" unit="%" show={cfg.showSpo2 !== false} prevField="prevSpo2" />
+      case 'weight':
+        return <VitalCell field="weight" label="Weight" unit={cfg.weightUnit === 'lbs' ? 'lbs' : 'kg'} show={cfg.showWeight !== false} />
+      default:
+        return null
+    }
+  }
+
+  return (
+    <div className="p-2">
+      <SortableRows
+        ids={fieldOrder}
+        onReorder={newOrder => onDataChange({ ...data, _fieldOrder: newOrder })}
+        buildMode={isBuild}
+        direction="horizontal"
+      >
+        {(id) => {
+          const content = renderField(id)
+          return content ?? <></>
+        }}
+      </SortableRows>
     </div>
   )
 }
