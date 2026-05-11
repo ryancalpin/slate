@@ -24,6 +24,7 @@ interface Props {
 
 export function ModulePalette({ onAddModule }: Props) {
   const [search, setSearch] = useState('')
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const plugins = pluginRegistry.list()
 
@@ -54,10 +55,18 @@ export function ModulePalette({ onAddModule }: Props) {
 
   const noResults = term.length > 0 && filteredEntries.length === 0
 
-  return (
-    <aside className="w-56 border-l border-gray-800 bg-[rgb(var(--color-surface-raised))] flex flex-col overflow-hidden shrink-0">
-      <div className="px-3 py-2 border-b border-gray-800 text-xs font-semibold text-accent uppercase tracking-wide">
-        Modules
+  const paletteContent = (
+    <>
+      <div className="px-3 py-2 border-b border-gray-800 text-xs font-semibold text-accent uppercase tracking-wide flex items-center justify-between">
+        <span>Modules</span>
+        {/* Close button shown only in mobile drawer */}
+        <button
+          onClick={() => setMobileOpen(false)}
+          className="md:hidden text-gray-500 hover:text-gray-300 p-1"
+          aria-label="Close module panel"
+        >
+          ✕
+        </button>
       </div>
       <div className="px-2 py-2 border-b border-gray-800">
         <div className="relative flex items-center">
@@ -88,7 +97,10 @@ export function ModulePalette({ onAddModule }: Props) {
             {groupPlugins.map(plugin => (
               <button
                 key={plugin.meta.id}
-                onClick={() => onAddModule(plugin.meta.id, plugin.meta.version, plugin.defaultConfig)}
+                onClick={() => {
+                  onAddModule(plugin.meta.id, plugin.meta.version, plugin.defaultConfig)
+                  setMobileOpen(false)
+                }}
                 className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-gray-100 transition-colors"
               >
                 {plugin.meta.name}
@@ -103,6 +115,44 @@ export function ModulePalette({ onAddModule }: Props) {
           <p className="px-3 text-xs text-gray-600">No modules registered yet.</p>
         )}
       </div>
-    </aside>
+    </>
+  )
+
+  return (
+    <>
+      {/* Desktop sidebar — md and above */}
+      <aside className="hidden md:flex w-56 border-l border-gray-800 bg-[rgb(var(--color-surface-raised))] flex-col overflow-hidden shrink-0">
+        {paletteContent}
+      </aside>
+
+      {/* Mobile: FAB button */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="md:hidden fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full bg-accent text-white shadow-lg text-sm font-medium"
+        aria-label="Open module panel"
+      >
+        ⊞ Modules
+      </button>
+
+      {/* Mobile: bottom drawer overlay */}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-0 z-50 flex flex-col justify-end">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+          {/* Drawer */}
+          <aside className="relative flex flex-col bg-[rgb(var(--color-surface-raised))] border-t border-gray-700 rounded-t-2xl max-h-[75vh] overflow-hidden">
+            {/* Swipe indicator */}
+            <div className="flex justify-center pt-2 pb-1 shrink-0">
+              <div className="w-10 h-1 rounded-full bg-gray-600" />
+            </div>
+            {paletteContent}
+          </aside>
+        </div>
+      )}
+    </>
   )
 }

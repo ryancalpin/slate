@@ -87,16 +87,17 @@ export function GridCanvas({ page, mode, data, onPageChange, onDataChange, onAdd
   return (
     <div
       ref={containerRef}
-      className="relative overflow-auto"
+      className="relative overflow-auto touch-manipulation"
       onContextMenu={mode === 'build' ? (e) => {
         e.preventDefault()
         setContextMenu({ x: e.clientX, y: e.clientY })
       } : undefined}
     >
       {page.layout.length === 0 && mode === 'build' && (
-        <div className="flex flex-col items-center justify-center h-64 text-center select-none pointer-events-none">
-          <p className="text-gray-600 text-sm">Add a module from the panel →</p>
-          <p className="text-gray-700 text-xs mt-1">Drag to reposition, drag corner to resize</p>
+        <div className="flex flex-col items-center justify-center h-64 text-center select-none pointer-events-none gap-3">
+          <div className="text-4xl">🧩</div>
+          <p className="text-gray-400 text-sm font-medium">Your canvas is empty</p>
+          <p className="text-gray-600 text-xs">Tap a module in the panel to add it,<br/>or right-click for quick add</p>
         </div>
       )}
       {mounted && (

@@ -10,6 +10,7 @@ import { ModulePalette } from '../shell/ModulePalette'
 import { PageTabs } from '../components/PageTabs'
 import { SnapshotTimeline } from '../components/SnapshotTimeline'
 import { PatientSelector } from '../components/PatientSelector'
+import { CommandPalette } from '../components/CommandPalette'
 import { applySnapshotToTemplate } from '../../core/snapshot/snapshotEngine'
 import { usePatientSlot } from '../../hooks/usePatientSlot'
 import type { AppMode, TemplatePage, Template, ModuleInstance } from '../../core/template/types'
@@ -38,6 +39,9 @@ export function CanvasView({ mode }: Props) {
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [savedFlash, setSavedFlash] = useState(false)
   const savedFlashRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Command palette (Cmd+K / Ctrl+K)
+  const [showCommandPalette, setShowCommandPalette] = useState(false)
 
   // Seed undo history baseline when the active page changes
   const historyPageRef = useRef<string>('')
@@ -89,7 +93,25 @@ export function CanvasView({ mode }: Props) {
     }, 500)
   }, [saveTemplate, showSavedFlash])
 
-  if (loading) return <div className="p-8 text-gray-500 text-sm">Loading…</div>
+  if (loading) return (
+    <div className="flex h-full overflow-hidden flex-col animate-pulse">
+      <div className="h-8 bg-gray-800 border-b border-gray-700" />
+      <div className="flex flex-1 overflow-hidden">
+        <div className="flex-1 p-4 flex flex-col gap-4">
+          <div className="flex gap-4">
+            <div className="h-32 rounded bg-gray-800 flex-1" />
+            <div className="h-32 rounded bg-gray-800 flex-1" />
+            <div className="h-32 rounded bg-gray-800 flex-1" />
+          </div>
+          <div className="flex gap-4">
+            <div className="h-48 rounded bg-gray-800 w-2/3" />
+            <div className="h-48 rounded bg-gray-800 flex-1" />
+          </div>
+        </div>
+        <div className="w-56 border-l border-gray-800 bg-gray-900" />
+      </div>
+    </div>
+  )
   if (!template) return <div className="p-8 text-gray-500 text-sm">Template not found.</div>
 
   // Derive displayed template (snapshot overlay or live)
@@ -213,7 +235,18 @@ export function CanvasView({ mode }: Props) {
       activePage={activePage}
       onUndo={handleUndo}
       onRedo={handleRedo}
+      mode={mode}
+      onShowCommandPalette={setShowCommandPalette}
     >
+      {showCommandPalette && (
+        <CommandPalette
+          onAddModule={async (moduleId, version, defaultConfig) => {
+            await handleAddModule(moduleId, version, defaultConfig)
+            setShowCommandPalette(false)
+          }}
+          onClose={() => setShowCommandPalette(false)}
+        />
+      )}
       <div className="flex h-full overflow-hidden flex-col">
         {/* Page tabs */}
         <PageTabs
@@ -415,6 +448,8 @@ function UndoRedoKeyHandler({
   activePage,
   onUndo,
   onRedo,
+  mode,
+  onShowCommandPalette,
   children,
 }: {
   historyIndex: number
@@ -422,12 +457,19 @@ function UndoRedoKeyHandler({
   activePage: TemplatePage | undefined
   onUndo: () => void
   onRedo: () => void
+  mode: AppMode
+  onShowCommandPalette: (show: boolean) => void
   children: React.ReactNode
 }) {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       const ctrl = e.ctrlKey || e.metaKey
-      if (ctrl && e.key === 'z' && !e.shiftKey) {
+      if (ctrl && e.key === 'k') {
+        e.preventDefault()
+        if (mode === 'build') {
+          onShowCommandPalette(true)
+        }
+      } else if (ctrl && e.key === 'z' && !e.shiftKey) {
         e.preventDefault()
         if (historyIndex > 0 && activePage) onUndo()
       } else if (ctrl && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
@@ -437,7 +479,7 @@ function UndoRedoKeyHandler({
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [historyIndex, layoutHistory.length, activePage, onUndo, onRedo])
+  }, [historyIndex, layoutHistory.length, activePage, onUndo, onRedo, mode, onShowCommandPalette])
 
   return <>{children}</>
 }
