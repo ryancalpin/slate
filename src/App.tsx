@@ -1,13 +1,14 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, lazy, Suspense } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { TopBar } from './ui/shell/TopBar'
 import { TabBar } from './ui/shell/TabBar'
 import { HomeView } from './ui/views/HomeView'
-import { CanvasView } from './ui/views/CanvasView'
-import { PrintPreview } from './ui/views/PrintPreview'
-import { CensusView } from './ui/views/CensusView'
-import { GalleryView } from './ui/views/GalleryView'
-import { PluginManagerView } from './ui/views/PluginManagerView'
+
+const CanvasView = lazy(() => import('./ui/views/CanvasView').then(m => ({ default: m.CanvasView })))
+const PrintPreview = lazy(() => import('./ui/views/PrintPreview').then(m => ({ default: m.PrintPreview })))
+const CensusView = lazy(() => import('./ui/views/CensusView').then(m => ({ default: m.CensusView })))
+const GalleryView = lazy(() => import('./ui/views/GalleryView').then(m => ({ default: m.GalleryView })))
+const PluginManagerView = lazy(() => import('./ui/views/PluginManagerView').then(m => ({ default: m.PluginManagerView })))
 import { useAppMode } from './hooks/useAppMode'
 import { useTheme } from './hooks/useTheme'
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
@@ -62,14 +63,16 @@ export default function App() {
         <TopBar mode={mode} onModeToggle={handleModeToggle} templateId={currentTemplateId} />
         <TabBar tabs={openTabs} onClose={closeTab} />
         <main className="flex-1 overflow-hidden">
-          <Routes>
-            <Route path="/" element={<HomeView />} />
-            <Route path="/template/:id" element={<CanvasView mode={mode} />} />
-            <Route path="/template/:id/print" element={<PrintPreview />} />
-            <Route path="/census" element={<CensusView />} />
-            <Route path="/gallery" element={<GalleryView />} />
-            <Route path="/plugins" element={<PluginManagerView />} />
-          </Routes>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<HomeView />} />
+              <Route path="/template/:id" element={<CanvasView mode={mode} />} />
+              <Route path="/template/:id/print" element={<PrintPreview />} />
+              <Route path="/census" element={<CensusView />} />
+              <Route path="/gallery" element={<GalleryView />} />
+              <Route path="/plugins" element={<PluginManagerView />} />
+            </Routes>
+          </Suspense>
         </main>
       </div>
     </AppContext.Provider>

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { calcGA } from './index'
 import { Renderer } from './Renderer'
@@ -20,6 +20,14 @@ describe('calcGA', () => {
 })
 
 describe('Renderer', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-04-13'))
+  })
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('renders GA and FHR fields', () => {
     render(
       <Renderer

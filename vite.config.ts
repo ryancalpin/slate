@@ -24,6 +24,17 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('react-dom') || id.includes('react-router-dom') || (id.includes('node_modules/react/') && !id.includes('react-dom'))) return 'vendor-react'
+          if (id.includes('@dnd-kit')) return 'vendor-dnd'
+          if (id.includes('dexie')) return 'vendor-db'
+        },
+      },
+    },
+  },
   // @ts-ignore — vitest injects test config at runtime; tsc doesn't know about it
   test: {
     environment: 'happy-dom',

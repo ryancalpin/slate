@@ -1,5 +1,3 @@
-import html2canvas from 'html2canvas'
-import { jsPDF } from 'jspdf'
 import { createRoot } from 'react-dom/client'
 import React from 'react'
 import type { Template, TemplatePage } from '../template/types'
@@ -21,6 +19,10 @@ export async function exportCleanDocPdf(
   _container: HTMLElement,
   activeSlotId?: string,
 ): Promise<Blob> {
+  const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+    import('html2canvas'),
+    import('jspdf'),
+  ])
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
   const pdfWidth = 210
   const pdfHeight = 297

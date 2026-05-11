@@ -1,6 +1,3 @@
-import html2canvas from 'html2canvas'
-import { jsPDF } from 'jspdf'
-
 /**
  * Captures the given element as a pixel-perfect screenshot and embeds it
  * into a jsPDF document. Always renders in light mode regardless of the
@@ -10,6 +7,11 @@ import { jsPDF } from 'jspdf'
  * @returns A Blob containing the PDF file
  */
 export async function exportPixelPerfectPdf(element: HTMLElement): Promise<Blob> {
+  const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+    import('html2canvas'),
+    import('jspdf'),
+  ])
+
   const hadDark = element.classList.contains('dark')
   if (hadDark) {
     element.classList.remove('dark')
