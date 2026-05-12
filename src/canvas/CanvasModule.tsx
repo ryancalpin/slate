@@ -47,14 +47,14 @@ export function CanvasModule({
         <span className="text-xs font-semibold text-accent truncate">{plugin.meta.name.toUpperCase()}</span>
         {mode === 'build' ? (
           <div className="flex gap-1 ml-2 shrink-0">
-            <button onClick={() => setShowEditor(v => !v)} title="Configure" className="text-gray-500 hover:text-gray-300 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100">⚙️</button>
-            <button onClick={() => onToggleLock(instance.instanceId)} title={instance.locked ? 'Unlock' : 'Lock'} className="text-gray-500 hover:text-gray-300 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
+            <button onClick={() => setShowEditor(v => !v)} title="Configure" className="text-gray-500 hover:text-gray-300 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-60 hover:opacity-100">⚙️</button>
+            <button onClick={() => onToggleLock(instance.instanceId)} title={instance.locked ? 'Unlock' : 'Lock'} className="text-gray-500 hover:text-gray-300 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-60 hover:opacity-100">
               {instance.locked ? '🔒' : '🔓'}
             </button>
-            <button onClick={() => onToggleCollapse(instance.instanceId)} title="Collapse" className="text-gray-500 hover:text-gray-300 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
+            <button onClick={() => onToggleCollapse(instance.instanceId)} title="Collapse" className="text-gray-500 hover:text-gray-300 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-60 hover:opacity-100">
               {instance.collapsed ? '▼' : '▲'}
             </button>
-            <button onClick={() => onRemove(instance.instanceId)} title="Remove" className="text-gray-500 hover:text-red-400 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100">✕</button>
+            <button onClick={() => onRemove(instance.instanceId)} title="Remove" className="text-gray-500 hover:text-red-400 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center opacity-60 hover:opacity-100">✕</button>
           </div>
         ) : (
           <button onClick={() => onToggleCollapse(instance.instanceId)} className="text-gray-600 hover:text-gray-400 text-xs p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">

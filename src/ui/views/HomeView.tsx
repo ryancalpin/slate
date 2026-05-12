@@ -13,6 +13,7 @@ export function HomeView() {
   const [creating, setCreating] = useState(false)
   const [newName, setNewName] = useState('')
   const [presetsExpanded, setPresetsExpanded] = useState(false)
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
 
   // useCallback so refresh is stable and safe in useEffect deps
   const refresh = useCallback(async () => {
@@ -30,9 +31,9 @@ export function HomeView() {
     openTab(t.id, t.name)
   }
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return
+  const handleDelete = async (id: string) => {
     await templateStore.delete(id)
+    setConfirmDeleteId(null)
     refresh()
   }
 
@@ -182,12 +183,30 @@ export function HomeView() {
               >
                 Duplicate
               </button>
-              <button
-                onClick={() => handleDelete(t.id, t.name)}
-                className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded hover:bg-gray-800 ml-auto"
-              >
-                Delete
-              </button>
+              {confirmDeleteId === t.id ? (
+                <div className="flex items-center gap-1 ml-auto">
+                  <span className="text-xs text-gray-500">Delete?</span>
+                  <button
+                    onClick={() => handleDelete(t.id)}
+                    className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded hover:bg-gray-800"
+                  >
+                    Yes
+                  </button>
+                  <button
+                    onClick={() => setConfirmDeleteId(null)}
+                    className="text-xs text-gray-500 hover:text-gray-300 px-2 py-1 rounded hover:bg-gray-800"
+                  >
+                    No
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setConfirmDeleteId(t.id)}
+                  className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded hover:bg-gray-800 ml-auto"
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </div>
         ))}

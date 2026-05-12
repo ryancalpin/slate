@@ -97,7 +97,7 @@ export function GridCanvas({ page, mode, data, onPageChange, onDataChange, onAdd
         <div className="flex flex-col items-center justify-center h-64 text-center select-none pointer-events-none gap-3">
           <div className="text-4xl">🧩</div>
           <p className="text-gray-400 text-sm font-medium">Your canvas is empty</p>
-          <p className="text-gray-600 text-xs">Tap a module in the panel to add it,<br/>or right-click for quick add</p>
+          <p className="text-gray-600 text-xs">Click a module in the panel to add it,<br/>right-click the canvas, or press <kbd className="px-1 py-0.5 rounded bg-gray-800 text-gray-400 font-mono text-xs">⌘K</kbd></p>
         </div>
       )}
       {mounted && (

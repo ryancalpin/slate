@@ -89,7 +89,12 @@ export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
             className={`w-full text-center text-lg font-semibold bg-transparent border-none outline-none ${rangeClass}`}
           />
         ) : (
-          <span className="text-lg font-semibold text-gray-400">—</span>
+          <input
+            type="number"
+            disabled
+            placeholder="—"
+            className="w-full text-center text-lg font-semibold bg-transparent border-none outline-none text-gray-600 cursor-not-allowed"
+          />
         )}
         <div className="flex items-center gap-1">
           <span className="text-xs text-gray-400">{unit}</span>
@@ -122,7 +127,11 @@ export const Renderer: FC<Props> = ({ config, data, onDataChange, mode }) => {
                   <input type="number" value={(data.dbp as number) ?? ''} onChange={e => handleChange('dbp', e.target.value)} className="w-12 text-center text-lg font-semibold bg-transparent border-none outline-none" placeholder="—" />
                 </>
               ) : (
-                <span className="text-lg font-semibold text-gray-400">—/—</span>
+                <div className="flex items-center gap-1">
+                  <input type="number" disabled placeholder="—" className="w-12 text-center text-lg font-semibold bg-transparent border-none outline-none text-gray-600 cursor-not-allowed" />
+                  <span className="text-gray-600">/</span>
+                  <input type="number" disabled placeholder="—" className="w-12 text-center text-lg font-semibold bg-transparent border-none outline-none text-gray-600 cursor-not-allowed" />
+                </div>
               )}
             </div>
             <span className="text-xs text-gray-400">mmHg</span>

@@ -43,6 +43,11 @@ export function CanvasView({ mode }: Props) {
   // Command palette (Cmd+K / Ctrl+K)
   const [showCommandPalette, setShowCommandPalette] = useState(false)
 
+  // Live in-memory data (instant updates); disk write is debounced separately
+  const [singleDataLocal, setSingleDataLocal] = useState<Record<string, Record<string, unknown>>>(
+    () => ({})
+  )
+
   // Seed undo history baseline when the active page changes
   const historyPageRef = useRef<string>('')
   useEffect(() => {
@@ -64,6 +69,13 @@ export function CanvasView({ mode }: Props) {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [template?.id])
+
+  // Seed local data from persisted template on first load or template switch
+  useEffect(() => {
+    if (template?.singleData) {
+      setSingleDataLocal(template.singleData)
+    }
+  }, [template?.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Roster patient slot hook
   const handleTemplateUpdate = useCallback((updated: Template) => {
@@ -135,8 +147,11 @@ export function CanvasView({ mode }: Props) {
     if (template.patientMode === 'roster') {
       await setSlotData(instanceId, fieldData)
     } else {
-      const updatedData = { ...template.singleData, [instanceId]: fieldData }
-      debouncedSave({ ...template, singleData: updatedData })
+      setSingleDataLocal(prev => {
+        const updated = { ...prev, [instanceId]: fieldData }
+        debouncedSave({ ...template, singleData: updated })
+        return updated
+      })
     }
   }
 
@@ -224,7 +239,7 @@ export function CanvasView({ mode }: Props) {
   const getInstanceData = (instanceId: string) =>
     template.patientMode === 'roster'
       ? getData(instanceId)
-      : (template.singleData?.[instanceId] ?? {})
+      : (singleDataLocal[instanceId] ?? {})
 
   const canvasMode = activePage?.canvasMode ?? template.canvasMode
 
